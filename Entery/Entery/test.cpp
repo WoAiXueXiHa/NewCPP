@@ -100,7 +100,7 @@
 //}
 
 //// 输入和输出
-using namespace std;
+//using namespace std;
 //int main()
 //{
 //	int x, y;
@@ -227,14 +227,56 @@ using namespace std;
 //	return 0;
 //}
 
-// 演示C++函数名修饰规则
-void print(int);
-void print(double);
+//// 演示C++函数名修饰规则
+//void print(int);
+//void print(double);
+//int main()
+//{
+//	// error LNK2019: 无法解析的外部符号 "void __cdecl print(int)" (?print@@YAXH@Z)，函数 main 中引用了该符号
+//	print(42);
+//	//  error LNK2019: 无法解析的外部符号 "void __cdecl print(double)" (?print@@YAXN@Z)，函数 main 中引用了该符号
+//	print(2.1);
+//	return 0;
+//}
+
+//
+//// 引用&
+//using namespace std;
+//int main()
+//{
+//	int a = 1;
+//	// 引用在定义时必须初始化  error C2530: “nq”: 必须初始化引用
+//	//int& nq;
+//	// 一个变量可以有多个引用
+//	int& na = a;
+//	int& nb = a;
+//	int& nc = na;
+//
+//	int num = 20;
+//	// 赋值
+//	na = num;
+//
+//	// 一旦确认了一个引用实体后，就不能再引用其他实体
+//	int b = 2;
+//	int& np = b;
+//	np = na; // 这里是赋值，而不是改变引用指向
+//	
+//	return 0;
+//}
+
+// const修饰引用
+using namespace std;
 int main()
 {
-	// error LNK2019: 无法解析的外部符号 "void __cdecl print(int)" (?print@@YAXH@Z)，函数 main 中引用了该符号
-	print(42);
-	//  error LNK2019: 无法解析的外部符号 "void __cdecl print(double)" (?print@@YAXN@Z)，函数 main 中引用了该符号
-	print(2.1);
-	return 0;
+	const int a = 10;
+	// 不可以 a只读 ra可读可写 权限放大
+	// int& ra = a;
+
+	// 可以 a和pa都是只读 权限平移
+	const int& pa = a;
+
+	// 可以 b可读可写 rb只读 权限缩小
+	int b = 10;
+	const int& rb = b;
+
 }
