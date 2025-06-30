@@ -263,20 +263,64 @@
 //	
 //	return 0;
 //}
+//
+// 
+//// const修饰引用
+//using namespace std;
+//int main()
+//{
+//	const int a = 10;
+//	// 不可以 a只读 ra可读可写 权限放大
+//	// int& ra = a;
+//
+//	// 可以 a和pa都是只读 权限平移
+//	const int& pa = a;
+//
+//	// 可以 b可读可写 rb只读 权限缩小
+//	int b = 10;
+//	const int& rb = b;
+//
+//}
 
-// const修饰引用
+//// 类型转换和表达式运算会产生临时变量 临时变量具有常性
+//using namespace std;
+//int main()
+//{
+//	int a = 20;
+//	int c = 10;
+//	double b = a;
+//	// E0434 非常量限定
+//	// int& rb = b;
+//	const int& rb = b;
+//
+//	// E0461 非常量引用的初始值必须为左值
+//	// int& plus = a + c;
+//	const int& plus = a + c;
+//
+//	return 0;
+//}
+
 using namespace std;
 int main()
 {
-	const int a = 10;
-	// 不可以 a只读 ra可读可写 权限放大
-	// int& ra = a;
+	/*int numa = 10;
+	int* ptra = &numa;
+	cout << sizeof(int*) << endl;
+	cout << *ptra << endl;
+	cout << &numa << endl;
+	ptra++;
+	cout << *ptra << endl;
 
-	// 可以 a和pa都是只读 权限平移
-	const int& pa = a;
+	int& rnuma = numa;
+	cout << sizeof(rnuma) << endl;
+	cout << rnuma << endl;
+	cout << &numa << endl;
+	rnuma++;
+	cout << rnuma << endl;*/
 
-	// 可以 b可读可写 rb只读 权限缩小
-	int b = 10;
-	const int& rb = b;
+	int* ptr = nullptr;
+	int& rptr = *ptr;
+	/*cout << rptr <<endl;*/
 
+	return 0;
 }
