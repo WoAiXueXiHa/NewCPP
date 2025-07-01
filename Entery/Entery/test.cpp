@@ -300,27 +300,41 @@
 //	return 0;
 //}
 
+//using namespace std;
+//int main()
+//{
+//	/*int numa = 10;
+//	int* ptra = &numa;
+//	cout << sizeof(int*) << endl;
+//	cout << *ptra << endl;
+//	cout << &numa << endl;
+//	ptra++;
+//	cout << *ptra << endl;
+//
+//	int& rnuma = numa;
+//	cout << sizeof(rnuma) << endl;
+//	cout << rnuma << endl;
+//	cout << &numa << endl;
+//	rnuma++;
+//	cout << rnuma << endl;*/
+//
+//	int* ptr = nullptr;
+//	int& rptr = *ptr;
+//	/*cout << rptr <<endl;*/
+//
+//	return 0;
+//}
+
+// ÄÚÁªº¯Êı
 using namespace std;
+inline int Add(int a = 10, int b = 30)
+{
+	return a + b;
+}
 int main()
 {
-	/*int numa = 10;
-	int* ptra = &numa;
-	cout << sizeof(int*) << endl;
-	cout << *ptra << endl;
-	cout << &numa << endl;
-	ptra++;
-	cout << *ptra << endl;
-
-	int& rnuma = numa;
-	cout << sizeof(rnuma) << endl;
-	cout << rnuma << endl;
-	cout << &numa << endl;
-	rnuma++;
-	cout << rnuma << endl;*/
-
-	int* ptr = nullptr;
-	int& rptr = *ptr;
-	/*cout << rptr <<endl;*/
+	int a = 0, b = 3;
+	Add(a, b);
 
 	return 0;
 }
