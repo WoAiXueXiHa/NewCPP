@@ -325,16 +325,42 @@
 //	return 0;
 //}
 
-// 内联函数
+//// 内联函数
+//using namespace std;
+//inline int Add(int a = 10, int b = 30)
+//{
+//	return a + b;
+//}
+//int main()
+//{
+//	int a = 0, b = 3;
+//	Add(a, b);
+//
+//	return 0;
+//}
+
 using namespace std;
-inline int Add(int a = 10, int b = 30)
-{
-	return a + b;
-}
 int main()
 {
-	int a = 0, b = 3;
-	Add(a, b);
+	// auto自动推导类型
+	auto a = 2.4;
+	auto b = 10;
+	auto c = '?';
+
+	cout << typeid(a).name() << endl;
+	cout << typeid(b).name() << endl;
+	cout << typeid(c).name() << endl;
+
+	// 指定必定是指针 引用
+	auto* pa = &a;
+	auto& rb = b;
+
+	// 范围for 自动将数组的值赋给e e自动++ 自动判断范围
+	int arr[] = { 0,1,2,3,4,5 };
+	for (auto& e : arr)
+	{
+		cout << e << " ";
+	}
 
 	return 0;
 }
