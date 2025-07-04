@@ -170,7 +170,65 @@ using namespace std;
 //	return 0;	 
 //}
 
+//class Person
+//{
+//public:
+//	void SetPersonInfo(){}
+//	void PrintPersonInfo(){}
+//
+//private:
+//	char* _name;
+//	bool _gender;
+//	size_t _age;
+//};
+//int main()
+//{
+//	Person p1;
+//	p1.SetPersonInfo();
+//	Person p2;
+//	p2.SetPersonInfo();
+//	return 0;
+//}
 
+
+#include<iostream>
+using namespace std;
+// 计算?下A/B/C实例化的对象是多?？
+// 8
+class A
+{
+public:
+	void Print()
+	{
+		cout << _ch << endl;
+	}
+private:
+	char _ch;
+	int _i;
+};
+// 1
+class B
+{
+public:
+	void Print()
+	{
+		//...
+	}
+};
+// 1
+class C
+{
+};
+int main()
+{
+	A a;
+	B b;
+	C c;
+	cout << sizeof(a) << endl;
+	cout << sizeof(b) << endl;
+	cout << sizeof(c) << endl;
+	return 0;
+}
 //
 //class A {
 //public:
