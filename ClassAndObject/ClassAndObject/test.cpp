@@ -284,38 +284,75 @@ using namespace std;
 //	p->Print();
 //	return 0;
 //}
-#include<iostream>
-using namespace std;
-class A
+//#include<iostream>
+//using namespace std;
+//class A
+//{
+//public:
+//	void Print()
+//	{
+//		cout << "A::Print()" << endl;
+//		// p->_a 解引用了空指针 运行奔溃
+//		cout << _a << endl;
+//	}
+//private:
+//	int _a;
+//};
+//int main()
+//{
+//	A* p = nullptr;
+//	p->Print();
+//	return 0;
+//}
+
+// 构造函数
+// 1. 函数名和类名同名 2. 可以重载 3. 没有返回值 4. 用户不写编译器会默认生成无参的构造函数
+
+class Date
 {
 public:
+	// 无参构造
+	Date(){}
+
+	//// 带参数构造
+	//Date(size_t year, size_t month, size_t day)
+	//{
+	//	_year = year;
+	//	_month = month;
+	//	_day = day;
+	//}
+
+	// 全缺省构造
+	Date(size_t year = 1, size_t month = 1, size_t day = 1)
+	{
+		_year = year;
+		_month = month;
+		_day = day;
+	}
+	
 	void Print()
 	{
-		cout << "A::Print()" << endl;
-		// p->_a 解引用了空指针 运行奔溃
-		cout << _a << endl;
+		cout << _year << "-" << _month << "-" << _day << endl;
 	}
 private:
-	int _a;
+	size_t _year;
+	size_t _month;
+	size_t _day;
 };
+
 int main()
 {
-	A* p = nullptr;
-	p->Print();
-	return 0;
-}
+	Date d1(2025,7,5);
+	d1.Print();
+	//// 无参构造和全缺省构造会产生调用歧义
+	//Date d2;
+	//d2.Print();
 
-//class A {
-//public:
-//    void Print() {
-//        cout << "Print()" << endl;
-//    }
-//private:
-//    int x;  
-//};
-//
-//int main() {
-//    A* p = nullptr; 
-//    p->Print();       
-//    return 0;
-//}
+	// 无参的不能这么写 会和函数声明搞混 eg: void func
+	// 这是函数声明还是函数定义呢？
+	/*Date d2();
+	d2.Print();*/
+
+	return 0;
+
+}
