@@ -312,24 +312,29 @@ class Date
 {
 public:
 	// 无参构造
-	Date(){}
+	Date()
+	{
+		_year = 1;
+		_month = 1;
+		_day = 1;
+	}
 
-	//// 带参数构造
-	//Date(size_t year, size_t month, size_t day)
-	//{
-	//	_year = year;
-	//	_month = month;
-	//	_day = day;
-	//}
-
-	// 全缺省构造
-	Date(size_t year = 1, size_t month = 1, size_t day = 1)
+	// 带参数构造
+	Date(size_t year, size_t month, size_t day)
 	{
 		_year = year;
 		_month = month;
 		_day = day;
 	}
-	
+
+	//// 全缺省构造
+	//Date(size_t year = 1, size_t month = 1, size_t day = 1)
+	//{
+	//	_year = year;
+	//	_month = month;
+	//	_day = day;
+	//}
+	//
 	void Print()
 	{
 		cout << _year << "-" << _month << "-" << _day << endl;
@@ -342,6 +347,7 @@ private:
 
 int main()
 {
+	// 调用带参数的构造
 	Date d1(2025,7,5);
 	d1.Print();
 	//// 无参构造和全缺省构造会产生调用歧义
@@ -352,6 +358,15 @@ int main()
 	// 这是函数声明还是函数定义呢？
 	/*Date d2();
 	d2.Print();*/
+
+	//// 如果注释掉无参的构造和全缺省构造，会报错
+	//// C2512 没有合适的默认构造函数可用
+	//Date d2;
+	//d2.Print();
+
+	// 调用无参的构造函数
+	Date d3;
+	d3.Print();
 
 	return 0;
 
