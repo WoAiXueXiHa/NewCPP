@@ -1,26 +1,26 @@
-#include <iostream>
+ï»¿#include <iostream>
 #include <assert.h>
 using namespace std;
 
-//// ¶¨ÒåÒ»¸öÀà
+//// å®šä¹‰ä¸€ä¸ªç±»
 //class stuInfo
 //{
 //public:
-//	// ½«ÊµÏÖ½Ó¿Ú¹«¿ª
-//	// ³ÉÔ±º¯Êı
+//	// å°†å®ç°æ¥å£å…¬å¼€
+//	// æˆå‘˜å‡½æ•°
 //private:
-//	// ½«ĞÅÏ¢Êı¾İÒş²Ø
+//	// å°†ä¿¡æ¯æ•°æ®éšè—
 //	unsigned int _age;
 //	unsigned int _numArr[8];
 //	char* _nameArr[10];
 //};
 //
 
-//// ÊµÏÖÒ»¸ö¼òµ¥µÄÕ»
+//// å®ç°ä¸€ä¸ªç®€å•çš„æ ˆ
 //class Stack
 //{
 //public:
-//	// ³ÉÔ±º¯Êı
+//	// æˆå‘˜å‡½æ•°
 //	void Init(int n = 4)
 //	{
 //		_valArr = (int*)malloc(sizeof(int) * n);
@@ -79,7 +79,7 @@ using namespace std;
 //class Stack
 //{
 //public:
-//	// ³ÉÔ±º¯Êı
+//	// æˆå‘˜å‡½æ•°
 //	void Init(int n = 4);
 //	void push(int inPut = 1);
 //	size_t top();
@@ -89,8 +89,8 @@ using namespace std;
 //	size_t _capacity;
 //	int* _valArr;
 //};
-//// ÉùÃ÷ºÍ¶¨Òå·ÖÀë
-//	// È±Ê¡²ÎÊıÉùÃ÷¸ø
+//// å£°æ˜å’Œå®šä¹‰åˆ†ç¦»
+//	// ç¼ºçœå‚æ•°å£°æ˜ç»™
 //	void Stack::Init(int n)
 //	{
 //		_valArr = (int*)malloc(sizeof(int) * n);
@@ -154,7 +154,7 @@ using namespace std;
 //		cout << _year << "/" << _month << "/" << _day << endl;
 //	}
 //private:
-//	// ÉùÃ÷
+//	// å£°æ˜
 //	size_t _year;
 //	size_t _month;
 //	size_t _day;
@@ -162,7 +162,7 @@ using namespace std;
 //
 //int main()
 //{
-//	// ÊµÀı»¯
+//	// å®ä¾‹åŒ–
 //	Date d1;
 //	d1.Init(2025, 7, 3);
 //	d1.Print();
@@ -190,46 +190,121 @@ using namespace std;
 //	return 0;
 //}
 
+//
+//#include<iostream>
+//using namespace std;
+//// è®¡ç®—â¼€ä¸‹A/B/Cå®ä¾‹åŒ–çš„å¯¹è±¡æ˜¯å¤šâ¼¤ï¼Ÿ
+//// 8
+//class A
+//{
+//public:
+//	void Print()
+//	{
+//		cout << _ch << endl;
+//	}
+//private:
+//	char _ch;
+//	int _i;
+//};
+//// 1
+//class B
+//{
+//public:
+//	void Print()
+//	{
+//		//...
+//	}
+//};
+//// 1
+//class C
+//{
+//};
+//int main()
+//{
+//	A a;
+//	B b;
+//	C c;
+//	cout << sizeof(a) << endl;
+//	cout << sizeof(b) << endl;
+//	cout << sizeof(c) << endl;
+//	return 0;
+//}
 
+// 
+//using namespace std;
+//class Date
+//{
+//public:
+//	// void Init(Date* const this, size_t year, size_t month, size_t day)
+//	void Init(size_t year, size_t month, size_t day)
+//	{
+//		// this->_year = year
+//		_year = year;
+//		_month = month;
+//		_day = day;
+//	}
+//	// void Print(Date* const this)
+//	void Print()
+//	{
+//		cout << _year << "-" << _month << "-" << _day << endl;
+//	}
+//private:
+//	size_t _year;
+//	size_t _month;
+//	size_t _day;
+//};
+//
+//int main()
+//{
+//	Date d1;
+//	d1.Init(2025, 7, 5);
+//	Date d2;
+//	d2.Init(2008, 1, 1);
+//	d1.Print();
+//	d2.Print();
+//}
+
+//#include<iostream>
+//using namespace std;
+//class A
+//{
+//public:
+//	void Print()
+//	{
+//		cout << "A::Print()" << endl;
+//	}
+//private:
+//	int _a;
+//};
+//
+//int main()
+//{
+//	// æ­£å¸¸è¿è¡Œï¼Œå¹¶æ²¡æœ‰è§£å¼•ç”¨ç©ºæŒ‡é’ˆ
+//	A* p = nullptr;
+//	p->Print();
+//	return 0;
+//}
 #include<iostream>
 using namespace std;
-// ¼ÆËã?ÏÂA/B/CÊµÀı»¯µÄ¶ÔÏóÊÇ¶à?£¿
-// 8
 class A
 {
 public:
 	void Print()
 	{
-		cout << _ch << endl;
+		cout << "A::Print()" << endl;
+		// p->_a è§£å¼•ç”¨äº†ç©ºæŒ‡é’ˆ è¿è¡Œå¥”æºƒ
+		cout << _a << endl;
 	}
 private:
-	char _ch;
-	int _i;
-};
-// 1
-class B
-{
-public:
-	void Print()
-	{
-		//...
-	}
-};
-// 1
-class C
-{
+	int _a;
 };
 int main()
 {
-	A a;
-	B b;
-	C c;
-	cout << sizeof(a) << endl;
-	cout << sizeof(b) << endl;
-	cout << sizeof(c) << endl;
+	A* p = nullptr;
+	p->Print();
 	return 0;
 }
-//
+
 //class A {
 //public:
 //    void Print() {
