@@ -382,9 +382,10 @@ using namespace std;
 //	}*/
 //
 //private:
-//	size_t _hour;
-//	size_t _minute;
-//	size_t _second;
+//	// C++11 在声明时给缺省值
+//	size_t _hour = 1;
+//	size_t _minute = 1;
+//	size_t _second = 1;
 //};
 //
 //class Date
@@ -399,14 +400,16 @@ using namespace std;
 //		cout << _year << "-" << _month << "-" << _day << endl;
 //	}
 //private:
-//	size_t _year;	
-//	size_t _month;
-//	size_t _day;
+//	// C++11 在声明时给缺省值
+//	size_t _year = 1;	
+//	size_t _month = 1;
+//	size_t _day = 1;
 //	Time _t;
 //};
 //
 //int main()
 //{
+//	// 此时 Time类和Date类只有编译器默认生成的构造函数
 //	Date d1;
 //	d1.Print();
 //	
@@ -415,17 +418,53 @@ using namespace std;
 
 // 析构函数
 // 1. 函数名和类名同名，函数名前加'~' 2. 不能重载 3. 用户不显式定义，编译器会默认生成析构函数
-
+class tmp
+{
+public:
+	~tmp()
+	{
+		cout << "~tmp() 析构" << endl;
+	}
+private:
+	int _num;
+};
 class Stack
 {
 public:
-	Stack()
+	Stack(size_t n = 4)
 	{
-		if
+		cout << "Stack(size_t n = 4) 构造" << endl;
+		_arr = (int*)malloc(sizeof(int) * n);
+		if (_arr == nullptr)
+		{
+			perror("malloc err!");
+			return;
+		}
+
+		_capacity = n;
+		_top = 0;
 	}
+
+	~Stack()
+	{
+		cout << "~Stack() 析构" << endl;
+		assert(_arr);
+		free(_arr);
+		_arr = nullptr;
+		_capacity = _top = 0;
+	}
+
 private:
 	int* _arr;
 	int _capacity;
 	int _top;
+	/*tmp _t;*/
 
 };
+
+int main()
+{
+	Stack st1;
+
+	return 0;
+}
