@@ -416,55 +416,56 @@ using namespace std;
 //	return 0;
 //}
 
-// 析构函数
-// 1. 函数名和类名同名，函数名前加'~' 2. 不能重载 3. 用户不显式定义，编译器会默认生成析构函数
-class tmp
-{
-public:
-	~tmp()
-	{
-		cout << "~tmp() 析构" << endl;
-	}
-private:
-	int _num;
-};
-class Stack
-{
-public:
-	Stack(size_t n = 4)
-	{
-		cout << "Stack(size_t n = 4) 构造" << endl;
-		_arr = (int*)malloc(sizeof(int) * n);
-		if (_arr == nullptr)
-		{
-			perror("malloc err!");
-			return;
-		}
+//// 析构函数
+//// 1. 函数名和类名同名，函数名前加'~' 2. 不能重载 3. 用户不显式定义，编译器会默认生成析构函数
+//class tmp
+//{
+//public:
+//	~tmp()
+//	{
+//		cout << "~tmp() 析构" << endl;
+//	}
+//private:
+//	int _num;
+//};
+//class Stack
+//{
+//public:
+//	Stack(size_t n = 4)
+//	{
+//		cout << "Stack(size_t n = 4) 构造" << endl;
+//		_arr = (int*)malloc(sizeof(int) * n);
+//		if (_arr == nullptr)
+//		{
+//			perror("malloc err!");
+//			return;
+//		}
+//
+//		_capacity = n;
+//		_top = 0;
+//	}
+//
+//	~Stack()
+//	{
+//		cout << "~Stack() 析构" << endl;
+//		assert(_arr);
+//		free(_arr);
+//		_arr = nullptr;
+//		_capacity = _top = 0;
+//	}
+//
+//private:
+//	int* _arr;
+//	int _capacity;
+//	int _top;
+//	/*tmp _t;*/
+//
+//};
+//
+//int main()
+//{
+//	Stack st1;
+//
+//	return 0;
+//}
 
-		_capacity = n;
-		_top = 0;
-	}
-
-	~Stack()
-	{
-		cout << "~Stack() 析构" << endl;
-		assert(_arr);
-		free(_arr);
-		_arr = nullptr;
-		_capacity = _top = 0;
-	}
-
-private:
-	int* _arr;
-	int _capacity;
-	int _top;
-	/*tmp _t;*/
-
-};
-
-int main()
-{
-	Stack st1;
-
-	return 0;
-}
