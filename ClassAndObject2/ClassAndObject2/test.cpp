@@ -108,68 +108,68 @@ using namespace std;
 // 如果不显式写拷贝构造，编译器会默认生成拷贝构造，
 // 自动⽣成的拷贝构造对内置类型成员变量会完成值拷贝/浅拷贝(⼀个字节⼀个字节的拷贝)，
 // 对自定义类型成员变量会调用它的拷贝构造
-class Stack
-{
-public:
-	Stack(size_t n = 4)
-	{
-		// cout << "Stack(size_t n = 4) 构造" << endl;
-		_arr = (int*)malloc(sizeof(int) * n);
-		if (_arr == nullptr)
-		{
-			perror("malloc err!");
-			return;
-		}
-
-		_capacity = n;
-		_top = 0;
-	}
-
-	// 深拷贝
-	// Stack st2 = st1;
-	Stack(const Stack& st)
-	{
-		_arr = (int*)malloc(sizeof(int) * st._capacity);
-		if (_arr == nullptr)
-		{
-			perror("malloc err!");
-			return;
-		}
-
-		memcpy(_arr, st._arr, sizeof(int)* st._capacity);
-
-		_capacity = st._capacity;
-		_top = st._top;
-	}
-
-	void Push(int data)
-	{
-		_arr[_top++] = data;
-	}
-
-	~Stack()
-	{
-		// cout << "~Stack() 析构" << endl;
-		assert(_arr);
-		free(_arr);
-		_arr = nullptr;
-		_capacity = _top = 0;
-	}
-
-private:
-	int* _arr;
-	int _capacity;
-	int _top;
-};
-
-int main()
-{
-	Stack st1;
-	st1.Push(1);
-	st1.Push(1);
-	st1.Push(1);
-
-	Stack st2 = st1;
-
-	return 0;
-}
+//class Stack
+//{
+//public:
+//	Stack(size_t n = 4)
+//	{
+//		// cout << "Stack(size_t n = 4) 构造" << endl;
+//		_arr = (int*)malloc(sizeof(int) * n);
+//		if (_arr == nullptr)
+//		{
+//			perror("malloc err!");
+//			return;
+//		}
+//
+//		_capacity = n;
+//		_top = 0;
+//	}
+//
+//	// 深拷贝
+//	// Stack st2 = st1;
+//	Stack(const Stack& st)
+//	{
+//		_arr = (int*)malloc(sizeof(int) * st._capacity);
+//		if (_arr == nullptr)
+//		{
+//			perror("malloc err!");
+//			return;
+//		}
+//
+//		memcpy(_arr, st._arr, sizeof(int)* st._capacity);
+//
+//		_capacity = st._capacity;
+//		_top = st._top;
+//	}
+//
+//	void Push(int data)
+//	{
+//		_arr[_top++] = data;
+//	}
+//
+//	~Stack()
+//	{
+//		// cout << "~Stack() 析构" << endl;
+//		assert(_arr);
+//		free(_arr);
+//		_arr = nullptr;
+//		_capacity = _top = 0;
+//	}
+//
+//private:
+//	int* _arr;
+//	int _capacity;
+//	int _top;
+//};
+//
+//int main()
+//{
+//	Stack st1;
+//	st1.Push(1);
+//	st1.Push(1);
+//	st1.Push(1);
+//
+//	Stack st2 = st1;
+//
+//	return 0;
+//}
