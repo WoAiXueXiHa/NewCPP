@@ -1,6 +1,6 @@
 ﻿#include <iostream>
 #include <assert.h>
-
+#include <stdbool.h>
 using namespace std;
 //
 //// 拷贝构造函数
@@ -173,3 +173,61 @@ using namespace std;
 //
 //	return 0;
 //}
+
+// 运算符重载
+// 对于自定义类型，使用操作符会调用该操作符具体的指令
+//int main()
+//{
+//	int num1 = 10;
+//	int num2 = 30;
+//	int mul = num1 * num2;
+//	int plus = num1 + num2;
+//
+//	return 0;
+//}
+
+
+// 自定义类型呢？
+
+class Date
+{
+public:
+	Date(int year, int month, int day)
+	{
+		_year = year;
+		_month = month;
+		_day = day;
+	}
+// private:
+	int _year;
+	int _month;
+	int _day;
+};
+bool operator>(const Date& d1, const Date& d2)
+{
+	if (d1._year > d2._year)
+	{
+		if (d1._month > d2._month)
+		{
+			if (d1._day > d2._day)
+			{
+				return true;
+			}
+		}
+	}
+	else
+	{
+		return false;
+	}
+}
+
+int main()
+{
+	Date d1(2025, 7, 17);
+	Date d2(2025, 7, 20);
+
+	cout << (d1 > d2) << endl;
+
+	return 0;
+
+}
