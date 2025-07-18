@@ -198,6 +198,12 @@ public:
 		_month = month;
 		_day = day;
 	}
+	~Date()
+	{
+		_year = -1;
+		_month = -1;
+		_day = -1;
+	}
 // private:
 	int _year;
 	int _month;
