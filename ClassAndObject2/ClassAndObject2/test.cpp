@@ -174,7 +174,12 @@ using namespace std;
 //	return 0;
 //}
 
+
 // 运算符重载
+// 参数类型必须要有一个是类类型
+// “operator -”必须至少有一个类类型的形参
+//void operator-(int a, int b){}
+
 // 对于自定义类型，使用操作符会调用该操作符具体的指令
 //int main()
 //{
@@ -188,52 +193,214 @@ using namespace std;
 
 
 // 自定义类型呢？
+//class Date
+//{
+//public:
+//	Date(int year, int month, int day)
+//	{
+//		_year = year;
+//		_month = month;
+//		_day = day;
+//	}
+//	~Date()
+//	{
+//		_year = -1;
+//		_month = -1;
+//		_day = -1;
+//	}
+//	bool operator>(const Date& d2)
+//	{
+//		if (this->_year > d2._year)
+//		{
+//			if (this->_month > d2._month)
+//			{
+//				if (this->_day > d2._day)
+//				{
+//					return true;
+//				}
+//			}
+//		}
+//		else
+//		{
+//			return false;
+//		}
+//	}
+//
+//private:
+//	int _year;
+//	int _month;
+//	int _day;
+//};
+//
+//int main()
+//{
+//	Date d1(2025, 7, 17);
+//	Date d2(2025, 7, 20);
+//	// 转换成调用 operator>(d1, d2)
+//	cout << (d1 > d2) << endl;
+//	// 可以显式调用
+//	cout << d1.operator>(d2) << endl;
+//
+//	return 0;
+//}
+
+//// .*不能重载
+//class A
+//{
+//public:
+//	void func()
+//	{
+//		cout << "A::func()" << endl;
+//	}
+//};
+//typedef void(A::* PF)(); //成员函数指针类型
+//
+//int main()
+//{
+//	// C++规定成员函数要加&才能取到函数指针
+//	PF pf = &A::func;
+//
+//	A obj;//定义ob类对象temp
+//
+//	// 对象调⽤成员函数指针时，使⽤.*运算符
+//	(obj.*pf)();
+//
+//	return 0;
+//}
+
+//int main()
+//{
+//	int i, j, k;
+//
+//	i = j = k = 1;
+//
+//	return 0;
+//}
 
 class Date
 {
 public:
-	Date(int year, int month, int day)
+	// 构造
+	Date(int year = 1900, int month = 1, int day = 1)
 	{
 		_year = year;
 		_month = month;
 		_day = day;
 	}
+
+	// 拷贝构造
+	Date(const Date& d)
+	{
+		cout << "Date(const Date & d)" << endl;
+		_year = d._year;
+		_month = d._month;
+		_day = d._day;
+	}
+
+	// 赋值运算符重载
+	Date& operator=(const Date& d)
+	{
+		// 防止自己给自己赋值
+		if (this != &d)
+		{
+			_year = d._year;
+			_month = d._month;
+			_day = d._day;
+		}
+		// 返回值是Date类
+		return *this;
+	}
+	// 析构 
 	~Date()
 	{
-		_year = -1;
-		_month = -1;
-		_day = -1;
+		cout << "~Date()" << endl;
+		_year = _month = _day = -1;
 	}
-// private:
+
+	void Print()
+	{
+		cout << _year << "-" << _month << "-" << _day << endl;
+	}
+
+private:
 	int _year;
 	int _month;
 	int _day;
 };
-bool operator>(const Date& d1, const Date& d2)
-{
-	if (d1._year > d2._year)
-	{
-		if (d1._month > d2._month)
-		{
-			if (d1._day > d2._day)
-			{
-				return true;
-			}
-		}
-	}
-	else
-	{
-		return false;
-	}
-}
 
-int main()
-{
-	Date d1(2025, 7, 17);
-	Date d2(2025, 7, 20);
+//int main()
+//{
+//	Date d1(2025, 7, 20);
+//	Date d2(2024, 7, 28);
+//	// 拷贝构造
+//	Date d3 = d1;
+//	// 赋值运算符重载
+//	// 缺少返回值 二元“=”: 没有找到接受“void”类型的右操作数的运算符(或没有可接受的转换)
+//	d1 = d2 = d3;
+//
+//	d1.Print();
+//	d2.Print();
+//	d3.Print();
+//}
 
-	cout << (d1 > d2) << endl;
+//// 传值返回
+//Date func()
+//{
+//	Date d1;
+//	Date d2;
+//
+//	if (time(0) % 2)
+//	{
+//		return d1;  // 编译器无法预测 取消优化
+//	}
+//	else
+//	{
+//		return d2;
+//	}
+//}
+//
+//int func1()
+//{
+//	int a = 1;
+//	int b = 2;
+//	int c = 3;
+//	return a + b + c;
+//}
+//
+//int main()
+//{
+//	Date ref = func();
+//	ref.Print();
+//	return 0;
+//}
 
-	return 0;
-
-}
+//// 传引用返回
+//Date& func()
+//{
+//	Date d1;
+//	Date d2;
+//
+//	if (time(0) % 2)
+//	{
+//		return d1;  // 编译器无法预测 取消优化
+//	}
+//	else
+//	{
+//		return d2;
+//	}
+//}
+//
+//int func1()
+//{
+//	int a = 1;
+//	int b = 2;
+//	int c = 3;
+//	return a + b + c;
+//}
+//
+//int main()
+//{
+//	Date& ref = func();
+//	ref.Print();
+//	return 0;
+//}
