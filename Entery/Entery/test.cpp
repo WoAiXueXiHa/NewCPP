@@ -100,7 +100,7 @@
 //}
 
 //// 输入和输出
-//using namespace std;
+using namespace std;
 //int main()
 //{
 //	int x, y;
@@ -112,31 +112,31 @@
 // 缺省参数（默认参数）函数声明或定义时，给函数形参指定的一个默认值，
 // 如果调用该函数未传参，则使用这个缺省参数，若调用时传参了，则优先使用传递的实参
 
-//// 全缺省
-//int Add(int a = 10, int b = 20)
-//{
-//	return a + b;
-//}
-//
-//// 半缺省 必须从左往右依次传递实参，不能间隔跳跃给实参
-//void Print(int a, int b = 10, int c = 20)
-//{
-//	cout << a << "   " << b << "   "<< c <<endl;
-//}
+// 全缺省
+int Add(int a = 10, int b = 20)
+{
+	return a + b;
+}
 
-//int main()
-//{
-//	// 如果调用该函数未传参，则使用这个缺省参数，若调用时传参了，则优先使用传递的实参
-//	int ret1 = Add();
-//	int ret2 = Add(1,2);
-//	cout << ret1<<"   " << ret2 << endl;
-//	// 半缺省调用 必须从左往右依次传递实参，不能间隔跳跃给实参
-//	Print(11);
-//	Print(11, 12);
-//	Print(11, 12, 13);
-//
-//	return 0;
-//}
+// 半缺省 必须从右往左给缺省值，不能间隔跳跃给缺省
+void Print(int a, int b = 10, int c = 20)
+{
+	cout << a << "   " << b << "   "<< c <<endl;
+}
+
+int main()
+{
+	// 如果调用该函数未传参，则使用这个缺省参数，若调用时传参了，则优先使用传递的实参
+	int ret1 = Add();
+	int ret2 = Add(1,2);
+	cout << ret1<<"   " << ret2 << endl;
+	// 半缺省调用 必须从左往右依次传递实参，不能间隔跳跃给实参
+	Print(11);
+	Print(11, 12);
+	Print(11, 12, 13);
+
+	return 0;
+}
 
 //// 函数声明定义分离情况,给声明缺省值，定义不要给
 //int Mul(int a = 1, int b = 6);
@@ -339,28 +339,28 @@
 //	return 0;
 //}
 
-using namespace std;
-int main()
-{
-	// auto自动推导类型
-	auto a = 2.4;
-	auto b = 10;
-	auto c = '?';
-
-	cout << typeid(a).name() << endl;
-	cout << typeid(b).name() << endl;
-	cout << typeid(c).name() << endl;
-
-	// 指定必定是指针 引用
-	auto* pa = &a;
-	auto& rb = b;
-
-	// 范围for 自动将数组的值赋给e e自动++ 自动判断范围
-	int arr[] = { 0,1,2,3,4,5 };
-	for (auto& e : arr)
-	{
-		cout << e << " ";
-	}
-
-	return 0;
-}
+//using namespace std;
+//int main()
+//{
+//	// auto自动推导类型
+//	auto a = 2.4;
+//	auto b = 10;
+//	auto c = '?';
+//
+//	cout << typeid(a).name() << endl;
+//	cout << typeid(b).name() << endl;
+//	cout << typeid(c).name() << endl;
+//
+//	// 指定必定是指针 引用
+//	auto* pa = &a;
+//	auto& rb = b;
+//
+//	// 范围for 自动将数组的值赋给e e自动++ 自动判断范围
+//	int arr[] = { 0,1,2,3,4,5 };
+//	for (auto& e : arr)
+//	{
+//		cout << e << " ";
+//	}
+//
+//	return 0;
+//}
