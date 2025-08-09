@@ -5,6 +5,10 @@ using namespace std;
 class Date
 {
 public:
+	Date()
+	{
+		_year = 1;
+	}
 private:
 	size_t _year;
 	size_t _month;
