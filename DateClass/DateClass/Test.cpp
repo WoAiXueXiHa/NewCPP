@@ -8,6 +8,12 @@ public:
 	Date()
 	{
 		_year = 1;
+		_month = 1;
+		_day = 1;
+	}
+	~Date()
+	{
+
 	}
 private:
 	size_t _year;
