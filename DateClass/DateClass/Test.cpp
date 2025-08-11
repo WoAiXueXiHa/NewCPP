@@ -226,6 +226,11 @@ void test2()
 	cout << (d1 += -500);
 }
 
+void test3()
+{
+
+}
+
 int main()
 {
 	test2();
