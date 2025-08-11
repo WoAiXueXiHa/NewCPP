@@ -6,6 +6,7 @@ using namespace std;
 class Date
 {
 public:
+	Date(int year = 1, int month = 1, int day = 1);
 	bool operator==(const Date& d)
 	{
 		if (_year == d._year && _month == d._month && _day == d._day)
@@ -54,6 +55,7 @@ public:
 	{
 		return (*this < d || *this == d);
 	}
+
 	int GetMonthDay(int year, int month)
 	{
 		assert(month > 0 && month < 13);
@@ -67,13 +69,22 @@ public:
 			return GetMonthDayArr[month];
 		}
 	}
+
 	Date& operator+=(int day)
 	{
 		_day += day;
-		if (_day > GetMonthDay(_year, _month))
+		while(_day > GetMonthDay(_year, _month))
 		{
-			_day -= 
+			_day -= GetMonthDay(_year, _month);
+			++_month;
+			if (_month > 13)
+			{
+				_month = 1;
+				++_year;
+			}
 		}
+
+		return *this;
 	}
 	Date& operator-=(int day);
 
@@ -84,7 +95,10 @@ private:
 	size_t _day = 1;
 };
 
+
 int main()
 {
+	Date d1(2025, 8, 11);
+
 	return 0;
 }
