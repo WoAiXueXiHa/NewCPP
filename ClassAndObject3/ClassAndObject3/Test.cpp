@@ -380,7 +380,7 @@ using namespace std;
 //	static int _aa;
 //};
 //// 静态成员变量在类外初始化
-//int _aa = 100;
+//int A::_aa = 100;
 //
 //class B
 //{
@@ -398,42 +398,43 @@ using namespace std;
 //
 
 // 实现一个类，计算程序出现多少个类对象
-class Calculate
-{
-public:
-	Calculate()
-	{
-		++_count;
-	}
+//class Calculate
+//{
+//public:
+//	Calculate()
+//	{
+//		++_count;
+//	}
+//
+//	Calculate(const Calculate& copy)
+//	{
+//		++_count;
+//	}
+//
+//	~Calculate()
+//	{
+//		--_count;
+//	}
+//	static int GetCount()
+//	{
+//		return _count;
+//	}
+//private:
+//	// 类内声明
+//	static int _count;
+//};
+//// 类外初始化
+//int Calculate::_count = 0;
+//
+//int main()
+//{
+//	cout << Calculate::GetCount() << endl;
+//	Calculate a1, a2;
+//	Calculate a3(a1);
+//	cout << Calculate::GetCount() << endl;
+//	cout << a1.GetCount() << endl;
+//	//  error C2248: “Calculate::_count”: 无法访问 private 成员(在“Calculate”类中声明)
+//	// cout << Calculate::_count << endl;
+//	return 0;
+//}
 
-	Calculate(const Calculate& copy)
-	{
-		++_count;
-	}
-
-	~Calculate()
-	{
-		--_count;
-	}
-	static int GetCount()
-	{
-		return _count;
-	}
-private:
-	// 类内声明
-	static int _count;
-};
-// 类外初始化
-int Calculate::_count = 0;
-
-int main()
-{
-	cout << Calculate::GetCount() << endl;
-	Calculate a1, a2;
-	Calculate a3(a1);
-	cout << Calculate::GetCount() << endl;
-	cout << a1.GetCount() << endl;
-	//  error C2248: “Calculate::_count”: 无法访问 private 成员(在“Calculate”类中声明)
-	// cout << Calculate::_count << endl;
-	return 0;
-}
