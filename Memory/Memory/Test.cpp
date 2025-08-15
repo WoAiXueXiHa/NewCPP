@@ -41,43 +41,43 @@ using namespace std;
 //	delete[] ptr4;
 //}
 
-class A
-{
-public:
-	A(int a1 = 1, int a2 = 2)
-		:_a1(a1)
-		, _a2(a2)
-	{
-		cout << "A(int a1, int a2)" << endl;
-	}
-
-	~A()
-	{
-		cout << "~A()" << endl;
-	}
-
-private:
-	int _a1;
-	int _a2;
-};
-
-int main()
-{
-	// 与C的malloc、realloc、calloc、free不同 new和delete对于自定义类型除了开辟空间还会调用构造和析构
-	A* ptr1 = (A*)malloc(sizeof(A));
-	A* ptr2 = new A{1,2};
-	free(ptr1);
-	delete ptr2;
-
-	// 内置类型几乎一样
-	int* ptr3 = (int*)malloc(sizeof(int));
-	int* ptr4 = new int;
-	free(ptr3);
-	delete ptr4;
-
-	A* ptr5 = (A*)malloc(sizeof(A) * 10);
-	A* ptr6 = new A[10];
-
-	free(ptr5);
-	delete[] ptr6;
-}
+//class A
+//{
+//public:
+//	A(int a1 = 1, int a2 = 2)
+//		:_a1(a1)
+//		, _a2(a2)
+//	{
+//		cout << "A(int a1, int a2)" << endl;
+//	}
+//
+//	~A()
+//	{
+//		cout << "~A()" << endl;
+//	}
+//
+//private:
+//	int _a1;
+//	int _a2;
+//};
+//
+//int main()
+//{
+//	// 与C的malloc、realloc、calloc、free不同 new和delete对于自定义类型除了开辟空间还会调用构造和析构
+//	A* ptr1 = (A*)malloc(sizeof(A));
+//	A* ptr2 = new A{1,2};
+//	free(ptr1);
+//	delete ptr2;
+//
+//	// 内置类型几乎一样
+//	int* ptr3 = (int*)malloc(sizeof(int));
+//	int* ptr4 = new int;
+//	free(ptr3);
+//	delete ptr4;
+//
+//	A* ptr5 = (A*)malloc(sizeof(A) * 10);
+//	A* ptr6 = new A[10];
+//
+//	free(ptr5);
+//	delete[] ptr6;
+//}
