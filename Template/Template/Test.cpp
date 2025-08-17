@@ -175,3 +175,9 @@ using namespace std;
 //		delete[] _pData;
 //	_size = _capacity = 0;
 //}
+
+//
+
+//// Vector类名 Vector<int>才是类型
+//Vector<int> t1;
+//Vector<double> t2;
