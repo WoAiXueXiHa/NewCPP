@@ -126,9 +126,125 @@ void test_capacity_functions() {
 	cout << "After resize, size: " << s2.size() << endl;
 	cout << "After resize, capacity: " << s2.capacity() << endl;
 }
+
+void test_element_access_funcitons() {
+	// 访问字符串
+	string s1 = "hello,string";
+	// 1.operator[] 
+	// char& operator[] (size_t pos); 可以修改返回对象
+	// const char& operator[] (size_t pos) const; 不能修改返回对象
+	for (size_t i = 0; i < s1.size(); i++)
+	{
+		cout << s1[i] << " ";
+	}
+	cout << endl;
+	// 可以修改
+	for (size_t i = 0; i < s1.size(); i++)
+	{
+		cout << s1[i]++ << " ";
+	}
+	cout << endl;
+
+	// 返回当前字符
+	for (size_t i = 0; i < s1.size(); i++)
+	{
+		cout << s1.at(i) << " ";
+	}
+	cout << endl;
+
+	// 返回最后一个字符
+	cout << s1.back() << endl;
+	// 返回第一个字符
+	cout << s1.front() << endl;
+
+}
+
+void test_modifiers_functions() {
+	// 字符串结尾追加一个字符，一个字符串，一个C类型字符串
+	string s1 = "hello vect";
+	string s2 = "yyyyy";
+	cout << s1 << endl << s2 << endl;
+	s1 += '!';
+	cout << s1 << endl;
+	s1 += "haha";
+	cout << s1 << endl;
+	s2 += s1;
+	cout << s2 << endl;
+
+	string s3 = "abc";
+	s3.append(s1);
+	cout << s3 << endl;
+	s3.append(s1, 4, 2);// (源字符串，开始索引，追加长度)
+	cout << s3 << endl;
+	s3.append("lalala", 4);// (源字符串，追加长度)
+	cout << s3 << endl;
+	s3.append("qiqiqi");
+	cout << s3 << endl;
+	s3.append(3, '.'); // "..."
+	cout << s3 << endl;
+	cout << endl;
+
+	// 尾插一个字符
+	s3.push_back('x');
+	cout << s3 << endl;
+	cout << endl;
+
+	// 指定索引位置插入
+	string s4 = "to be question";
+	string s5 = "the ";
+	string s6 = "or not to be";
+
+	string::iterator it;
+	cout << s4 << endl;
+	s4.insert(6, s5);
+	cout << s4 << endl;
+	s4.insert(6, s6, 3, 4);
+	cout << s4 << endl;
+	s4.insert(10, "that is cool", 8);
+	cout << s4 << endl;
+	s4.insert(10, "to be ");
+	cout << s4 << endl;
+	s4.insert(s4.end(), 3, '!');
+	cout << s4 << endl;
+	cout << endl;
+
+	// 删除字符
+	s4.erase(2, 6); // （开始删除索引，删除长度）
+	cout << s4 << endl;
+	s4.erase(s4.begin() + 2);
+	cout << s4 << endl;
+	s4.erase(s4.begin() + 1, s4.end() - 2);
+	cout << s4 << endl;
+	cout << endl;
+
+	// 替换
+	string str = "this is a test string";
+	string str2 = "n example";
+	string str3 = "sample phrase";
+	string str4 = "useful";
+
+	// 用索引
+	str.replace(9, 5, str2);          // "this is an example string." 
+	str.replace(19, 6, str3, 7, 6);     // "this is an example phrase." 
+	str.replace(8, 10, "just a");     // "this is just a phrase."     
+	str.replace(8, 6, "a shorty", 7);  // "this is a short phrase."    
+	str.replace(22, 1, 3, '!');        // "this is a short phrase!!!"  
+	cout << str << endl;
+
+	// 用迭代器
+	str.replace(str.begin(), str.end() - 3, str3);                    // "sample phrase!!!"     
+	str.replace(str.begin(), str.begin() + 6, "replace");             // "replace phrase!!!"     
+	str.replace(str.begin() + 8, str.begin() + 14, "is coolness", 7);    // "replace is cool!!!"   
+	str.replace(str.begin() + 12, str.end() - 4, 4, 'o');                // "replace is cooool!!!"  
+	str.replace(str.begin() + 11, str.end(), str4.begin(), str4.end());// "replace is useful."    
+	cout << str << endl;
+
+}
 int main() {
 	// test_member_functions();
 	// test_iterator_functions();
-	test_capacity_functions();
+	// test_capacity_functions();
+	// test_element_access_funcitons();
+	// test_modifiers_functions();
 	return 0;
 }
