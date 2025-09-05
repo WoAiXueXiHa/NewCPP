@@ -45,4 +45,6 @@ public:
 	void insert(size_t pos, const char ch);
 	void insert(size_t pos, const char* str);
 	void insert(size_t pos, const myString& str);
+
+	// 
 };
