@@ -1,13 +1,13 @@
 #define _CRT_SECURE_NO_WARNINGS 1
 #include <iostream>
 #include <cassert>
-
+using namespace std;
 class myString {
 private:
 	char* _str = nullptr;
-	size_t _size;
-	size_t _capacity;
-
+	size_t _size = 0;
+	size_t _capacity = 0;
+	static const size_t npos;
 public:
 	// 构造
 	myString(const char* str = "");
@@ -27,11 +27,6 @@ public:
 	iterator end();
 	const_iterator begin() const;
 	const_iterator end() const;
-	// 反向
-	iterator rbegin();
-	iterator rend();
-	const_iterator rbegin() const;
-	const_iterator rend() const;
 
 	// 容量操作
 	size_t size() const;
@@ -40,13 +35,14 @@ public:
 	bool empty() const;
 
 	void reserve(size_t size);
-	void resize(size_t new_size);
+	size_t find(size_t pos, const char ch) const;
+	size_t find(size_t pos, const char* str) const;
 
 	// 修改操作
 	void push_back(const char ch);
 	void append(const char* str);
 	void append(const myString& str);
-	void erase();
+	void erase(size_t pos, size_t len);
 	void insert(size_t pos, const char ch);
 	void insert(size_t pos, const char* str);
 	void insert(size_t pos, const myString& str);
@@ -56,6 +52,7 @@ public:
 	char& operator[](size_t pos);
 	myString& operator+=(const char* str);
 	myString& operator+=(const char ch);
+	myString& operator+=(const myString& str);
 
 	bool operator>(const myString& str) const;
 	bool operator>=(const myString& str) const;
@@ -64,3 +61,6 @@ public:
 	bool operator==(const myString& str) const;
 	bool operator!=(const myString& str) const;
 };
+
+std::ostream& operator<<(std::ostream& os, const myString& str);
+std::istream& operator>>(std::istream& os, myString& str);
