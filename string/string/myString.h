@@ -1,4 +1,6 @@
+#define _CRT_SECURE_NO_WARNINGS 1
 #include <iostream>
+#include <cassert>
 
 class myString {
 private:
@@ -11,8 +13,11 @@ public:
 	myString(const char* str = "");
 	// 拷贝构造
 	myString(const myString& str);
-	// xigou
+	// 析构
 	~myString();
+
+	// 返回C格式字符串
+	char* c_str() const;
 
 	// 迭代器
 	typedef  char* iterator;
@@ -46,5 +51,16 @@ public:
 	void insert(size_t pos, const char* str);
 	void insert(size_t pos, const myString& str);
 
-	// 
+	// 运算符重载
+	const char& operator[](size_t pos) const;
+	char& operator[](size_t pos);
+	myString& operator+=(const char* str);
+	myString& operator+=(const char ch);
+
+	bool operator>(const myString& str) const;
+	bool operator>=(const myString& str) const;
+	bool operator<(const myString& str) const;
+	bool operator<=(const myString& str) const;
+	bool operator==(const myString& str) const;
+	bool operator!=(const myString& str) const;
 };

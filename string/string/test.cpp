@@ -248,3 +248,58 @@
 //	// test_modifiers_functions();
 //	return 0;
 //}
+
+#include "myString.h"
+void test_tra() {
+	myString s0("abcdefg");
+	// 1. 迭代器
+	myString::iterator it1 = s0.begin();
+	while (it1 != s0.end()) {
+		std::cout << *it1 << " ";
+		++it1;
+	}
+	std::cout << std::endl;
+	// 2.operator[]
+	for (size_t i = 0; i < s0.size(); i++)
+	{
+		std::cout << s0[i] << " ";
+	}
+	std::cout << std::endl;
+	// 可以修改
+	for (size_t i = 0; i < s0.size(); i++)
+	{
+		std::cout << s0[i]++ << " ";
+	}
+	std::cout << std::endl;
+	// 3. 范围for
+	for (auto e : s0) std::cout << e << " ";
+	std::cout << std::endl;
+}
+void test_capacity() {
+	myString s0("hello world");
+	std::cout << "before clear:" << std::endl;
+	std::cout << "capacity: "<< s0.capacity() << std::endl;
+	std::cout << "size: "<< s0.size() << std::endl;
+	std::cout << "empty? : "<< s0.empty() << std::endl;
+	// 清空
+	s0.clear();
+	std::cout << "after clear:" << std::endl;
+	std::cout << "capacity: " << s0.capacity() << std::endl;
+	std::cout << "size: " << s0.size() << std::endl;
+	std::cout << "empty? : " << s0.empty() << std::endl;
+}
+
+void test_insert() {
+	myString s0("hello world");
+	s0.push_back('!');
+	s0.append("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx..");
+	s0 += "haha";
+	s0 += '1';
+	std::cout << s0.c_str() << std::endl;
+}
+int main() {
+	/*test_tra();
+	test_capacity();*/
+	test_insert();
+	return 0;
+}
