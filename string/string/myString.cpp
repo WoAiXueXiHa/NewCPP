@@ -27,8 +27,7 @@ size_t myString::capacity() const {
 	return _capacity;
 }
 void myString::clear() {
-	delete[] _str;
-	_str = nullptr;
+	_str[0] = '\0';
 	_size = 0;
 }
 bool myString::empty() const {
@@ -88,12 +87,20 @@ void  myString::push_back(const char ch) {
 }
 void  myString::append(const char* str) {
 	// 扩容
-	size_t len = strlen(_str);
+	size_t len = strlen(str);
 	if (len + _size > _capacity) reserve(len + _size);
 
 	// 插入
 	// 原来字符串结尾开始插入
 	strcpy(_str + _size, str);
+	_size += len;
+}
+void myString::append(const myString& str) {
+	size_t len = str.size();
+	if (len + _size > _capacity) reserve(len + _size);
+	// 插入
+	// 原来字符串结尾开始插入
+	strcpy(_str + _size, str.c_str());
 	_size += len;
 }
 myString& myString::operator+=(const char* str) {
@@ -105,16 +112,101 @@ myString& myString::operator+=(const char ch) {
 	push_back(ch);
 	return *this;
 }
-
-void  myString::erase() {
-
+myString& myString::operator+=(const myString& str) {
+	append(str);
+	return *this;
 }
+
+
+void myString::erase(size_t pos, size_t len) {
+	// 暴力检查
+	assert(pos <= _size);
+
+	// 如果删除长度足够大，直接截断
+	if (len >= _size - pos) {
+		_str[pos] = '\0';
+		_size = pos;
+	}
+	// 否则需要挪动数据
+	else {
+		// 保存原始pos值，用新变量i进行迭代
+		size_t i = pos;
+		// 循环条件：当还没复制到原字符串结尾时继续
+		while (i + len < _size) {
+			_str[i] = _str[i + len];
+			++i;
+		}
+		// 添加字符串结束符
+		_str[_size - len] = '\0';
+		// 更新字符串长度
+		_size -= len;
+	}
+}
+// 在pos位置之后插入字符
 void  myString::insert(size_t pos, const char ch) {
+	// 暴力检查
+	assert(pos <= _size);
+	
+	// 扩容
+	size_t new_capacity = _capacity == 0 ? 4 : 2 * _capacity;
+	reserve(new_capacity);
 
+	size_t end = _size + 1;
+	while (end > pos) {
+		_str[end + 1] = _str[end];
+		--end;
+	}
+	_str[pos] = ch;
+	++_size;
 }
+
 void  myString::insert(size_t pos, const char* str) {
+	// 暴力检查
+	assert(pos <= _size);
+	// 扩容
+	size_t len = strlen(str);
+	if (len + _size > _capacity) reserve(len + _size);
+
+	size_t end = _size + len;
+	while (end > pos) {
+		_str[end] = _str[end - len];
+		--end;
+	}
+	memcpy(_str + pos, str, len);
+	_size += len;
 
 }
 void  myString::insert(size_t pos, const myString& str) {
+	// 暴力检查
+	assert(pos <= _size);
+	// 扩容
+	size_t len = str.size();
+	if (len + _size > _capacity) reserve(len + _size);
 
+	size_t end = _size + len;
+	while (end > pos) {
+		_str[end] = _str[end - len];
+		--end;
+	}
+	memcpy(_str + pos, str.c_str(), len);
+	_size += len;
+}
+
+bool myString::operator>(const myString& str) const {
+	return !(*this <= str);
+}
+bool myString::operator>=(const myString& str) const {
+	return !(*this < str);
+}
+bool myString::operator<(const myString& str) const {
+	return strcmp(_str,str.c_str()) < 0;
+}
+bool myString::operator<=(const myString& str) const {
+	return *this < str || *this == str;
+}
+bool myString::operator==(const myString& str) const {
+	return strcmp(_str, str.c_str()) == 0;
+}
+bool myString::operator!=(const myString& str) const {
+	return !(*this == str);
 }

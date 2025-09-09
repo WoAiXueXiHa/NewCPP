@@ -290,12 +290,34 @@ void test_capacity() {
 }
 
 void test_insert() {
-	myString s0("hello world");
-	s0.push_back('!');
-	s0.append("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx..");
-	s0 += "haha";
-	s0 += '1';
-	std::cout << s0.c_str() << std::endl;
+	//myString s0("hello world");
+	//s0.push_back('!');
+	//s0.append("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx..");
+	//s0 += "haha";
+	//s0 += '1';
+	//std::cout << s0.c_str() << std::endl;
+
+	//myString s1("hello world");
+	//myString s2("! C++"); 
+	//s1.append(s2);
+	//s1 += s2;
+	//std::cout << s1.c_str() << std::endl;
+
+	/*myString s3("hello world");
+	s3.erase(1, 2);
+	std::cout << s3.c_str() << std::endl;
+	myString s4("hello world");
+	s4.erase(1,30);
+	std::cout << s4.c_str() << std::endl;*/
+
+	myString s5("xxxxxxx");
+	s5.insert(0, 'p');
+	std::cout << s5.c_str() << std::endl;
+	s5.insert(0, "qqqq");
+	myString s6("123");
+	s5.insert(0, s6);
+	std::cout << s5.c_str() << std::endl;
+
 }
 int main() {
 	/*test_tra();

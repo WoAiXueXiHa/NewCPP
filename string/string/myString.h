@@ -27,11 +27,6 @@ public:
 	iterator end();
 	const_iterator begin() const;
 	const_iterator end() const;
-	// 反向
-	iterator rbegin();
-	iterator rend();
-	const_iterator rbegin() const;
-	const_iterator rend() const;
 
 	// 容量操作
 	size_t size() const;
@@ -46,7 +41,7 @@ public:
 	void push_back(const char ch);
 	void append(const char* str);
 	void append(const myString& str);
-	void erase();
+	void erase(size_t pos, size_t len);
 	void insert(size_t pos, const char ch);
 	void insert(size_t pos, const char* str);
 	void insert(size_t pos, const myString& str);
@@ -56,6 +51,7 @@ public:
 	char& operator[](size_t pos);
 	myString& operator+=(const char* str);
 	myString& operator+=(const char ch);
+	myString& operator+=(const myString& str);
 
 	bool operator>(const myString& str) const;
 	bool operator>=(const myString& str) const;
