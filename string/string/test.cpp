@@ -295,7 +295,6 @@ void test_capacity() {
 }
 
 void test_insert() {
-<<<<<<< HEAD
 	myString s0("hello world");
 	s0.push_back('!');
 	s0.append("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx..");
@@ -310,7 +309,6 @@ void test_insert() {
 	std::cout << s1.c_str() << std::endl;
 
 	myString s3("hello world");
-=======
 	//myString s0("hello world");
 	//s0.push_back('!');
 	//s0.append("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx..");
@@ -334,7 +332,6 @@ void test_insert() {
 	std::cout << s4.c_str() << std::endl;
 =======
 	std::cout << s4.c_str() << std::endl;*/
->>>>>>> d5512f6c3d7e2bb27f3fa8972f68534446007025
 
 	myString s5("xxxxxxx");
 	s5.insert(0, 'p');
@@ -344,7 +341,6 @@ void test_insert() {
 	s5.insert(0, s6);
 	std::cout << s5.c_str() << std::endl;
 
-<<<<<<< HEAD
 }
 
 void test_compare() {
@@ -364,8 +360,6 @@ void test_stream() {
 	myString s1;
 	cin >> s1;
 	cout << s1;
-=======
->>>>>>> d5512f6c3d7e2bb27f3fa8972f68534446007025
 }
 int main() {
 	// test_tra();
