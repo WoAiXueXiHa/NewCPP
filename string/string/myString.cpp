@@ -230,21 +230,33 @@ void  myString::insert(size_t pos, const myString& str) {
 }
 
 bool myString::operator>(const myString& str) const {
+<<<<<<< HEAD
 	return !(*this <= str.c_str());
 }
 bool myString::operator>=(const myString& str) const {
 	return !(*this < str.c_str());
+=======
+	return !(*this <= str);
+}
+bool myString::operator>=(const myString& str) const {
+	return !(*this < str);
+>>>>>>> d5512f6c3d7e2bb27f3fa8972f68534446007025
 }
 bool myString::operator<(const myString& str) const {
 	return strcmp(_str,str.c_str()) < 0;
 }
 bool myString::operator<=(const myString& str) const {
+<<<<<<< HEAD
 	return *this < str.c_str() || *this == str.c_str();
+=======
+	return *this < str || *this == str;
+>>>>>>> d5512f6c3d7e2bb27f3fa8972f68534446007025
 }
 bool myString::operator==(const myString& str) const {
 	return strcmp(_str, str.c_str()) == 0;
 }
 bool myString::operator!=(const myString& str) const {
+<<<<<<< HEAD
 	return !(*this == str.c_str());
 }
 
@@ -265,4 +277,7 @@ istream& operator>>(istream& is, myString& str) {
 	}
 
 	return is;
+=======
+	return !(*this == str);
+>>>>>>> d5512f6c3d7e2bb27f3fa8972f68534446007025
 }
