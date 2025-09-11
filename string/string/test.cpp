@@ -249,123 +249,124 @@
 //	return 0;
 //}
 
-#include "myString.h"
-void test_tra() {
-	myString s0("abcdefg");
-	// 1. 迭代器
-	myString::iterator it1 = s0.begin();
-	while (it1 != s0.end()) {
-		std::cout << *it1 << " ";
-		++it1;
-	}
-	std::cout << std::endl;
-	// 2.operator[]
-	for (size_t i = 0; i < s0.size(); i++)
-	{
-		std::cout << s0[i] << " ";
-	}
-	std::cout << std::endl;
-	// 可以修改
-	for (size_t i = 0; i < s0.size(); i++)
-	{
-		std::cout << s0[i]++ << " ";
-	}
-	std::cout << std::endl;
-	// 3. 范围for
-	for (auto e : s0) std::cout << e << " ";
-	std::cout << std::endl;
-}
-void test_capacity() {
-	myString s0("hello world");
-	std::cout << "before clear:" << std::endl;
-	std::cout << "capacity: "<< s0.capacity() << std::endl;
-	std::cout << "size: "<< s0.size() << std::endl;
-	std::cout << "empty? : "<< s0.empty() << std::endl;
-	// 清空
-	s0.clear();
-	std::cout << "after clear:" << std::endl;
-	std::cout << "capacity: " << s0.capacity() << std::endl;
-	std::cout << "size: " << s0.size() << std::endl;
-	std::cout << "empty? : " << s0.empty() << std::endl;
+//#include "myString.h"
+//void test_tra() {
+//	myString s0("abcdefg");
+//	// 1. 迭代器
+//	myString::iterator it1 = s0.begin();
+//	while (it1 != s0.end()) {
+//		std::cout << *it1 << " ";
+//		++it1;
+//	}
+//	std::cout << std::endl;
+//	// 2.operator[]
+//	for (size_t i = 0; i < s0.size(); i++)
+//	{
+//		std::cout << s0[i] << " ";
+//	}
+//	std::cout << std::endl;
+//	// 可以修改
+//	for (size_t i = 0; i < s0.size(); i++)
+//	{
+//		std::cout << s0[i]++ << " ";
+//	}
+//	std::cout << std::endl;
+//	// 3. 范围for
+//	for (auto e : s0) std::cout << e << " ";
+//	std::cout << std::endl;
+//}
+//void test_capacity() {
+//	myString s0("hello world");
+//	std::cout << "before clear:" << std::endl;
+//	std::cout << "capacity: "<< s0.capacity() << std::endl;
+//	std::cout << "size: "<< s0.size() << std::endl;
+//	std::cout << "empty? : "<< s0.empty() << std::endl;
+//	// 清空
+//	s0.clear();
+//	std::cout << "after clear:" << std::endl;
+//	std::cout << "capacity: " << s0.capacity() << std::endl;
+//	std::cout << "size: " << s0.size() << std::endl;
+//	std::cout << "empty? : " << s0.empty() << std::endl;
+//
+//	myString s1 = "abcdefg";
+//	const char* substr = "cd";
+//	std::cout << s1.find(2,'e') << std::endl;
+//	std::cout << s1.find(2,"cd") << std::endl;
+//}
+//
+//void test_insert() {
+//	myString s0("hello world");
+//	s0.push_back('!');
+//	s0.append("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx..");
+//	s0 += "haha";
+//	s0 += '1';
+//	std::cout << s0.c_str() << std::endl;
+//
+//	myString s1("hello world");
+//	myString s2("! C++"); 
+//	s1.append(s2);
+//	s1 += s2;
+//	std::cout << s1.c_str() << std::endl;
+//
+//	myString s3("hello world");
+//	//myString s0("hello world");
+//	//s0.push_back('!');
+//	//s0.append("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx..");
+//	//s0 += "haha";
+//	//s0 += '1';
+//	//std::cout << s0.c_str() << std::endl;
+//
+//	//myString s1("hello world");
+//	//myString s2("! C++"); 
+//	//s1.append(s2);
+//	//s1 += s2;
+//	//std::cout << s1.c_str() << std::endl;
+//
+//	/*myString s3("hello world");
+//>>>>>>> d5512f6c3d7e2bb27f3fa8972f68534446007025
+//	s3.erase(1, 2);
+//	std::cout << s3.c_str() << std::endl;
+//	myString s4("hello world");
+//	s4.erase(1,30);
+//<<<<<<< HEAD
+//	std::cout << s4.c_str() << std::endl;
+//=======
+//	std::cout << s4.c_str() << std::endl;*/
+//
+//	myString s5("xxxxxxx");
+//	s5.insert(0, 'p');
+//	std::cout << s5.c_str() << std::endl;
+//	s5.insert(0, "qqqq");
+//	myString s6("123");
+//	s5.insert(0, s6);
+//	std::cout << s5.c_str() << std::endl;
+//
+//}
+//
+//void test_compare() {
+//	myString s0 = "abc";
+//	myString s1 = "cdefg";
+//	std::cout << (s0 > s1)<< std::endl;
+//	std::cout << (s0 >= s1)<< std::endl;
+//	std::cout << (s0 < s1)<< std::endl;
+//	std::cout << (s0 <= s1)<< std::endl;
+//	std::cout << (s0 == s1)<< std::endl;
+//	std::cout << (s0 != s1)<< std::endl;
+//}
+//
+//void test_stream() {
+//	myString s0 = "123456";
+//	cout << s0 << endl;
+//	myString s1;
+//	cin >> s1;
+//	cout << s1;
+//}
+//int main() {
+//	// test_tra();
+//	// test_capacity();
+//	// test_insert();
+//	/*test_compare();*/
+//	test_stream();
+//	return 0;
+//}
 
-	myString s1 = "abcdefg";
-	const char* substr = "cd";
-	std::cout << s1.find(2,'e') << std::endl;
-	std::cout << s1.find(2,"cd") << std::endl;
-}
-
-void test_insert() {
-	myString s0("hello world");
-	s0.push_back('!');
-	s0.append("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx..");
-	s0 += "haha";
-	s0 += '1';
-	std::cout << s0.c_str() << std::endl;
-
-	myString s1("hello world");
-	myString s2("! C++"); 
-	s1.append(s2);
-	s1 += s2;
-	std::cout << s1.c_str() << std::endl;
-
-	myString s3("hello world");
-	//myString s0("hello world");
-	//s0.push_back('!');
-	//s0.append("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx..");
-	//s0 += "haha";
-	//s0 += '1';
-	//std::cout << s0.c_str() << std::endl;
-
-	//myString s1("hello world");
-	//myString s2("! C++"); 
-	//s1.append(s2);
-	//s1 += s2;
-	//std::cout << s1.c_str() << std::endl;
-
-	/*myString s3("hello world");
->>>>>>> d5512f6c3d7e2bb27f3fa8972f68534446007025
-	s3.erase(1, 2);
-	std::cout << s3.c_str() << std::endl;
-	myString s4("hello world");
-	s4.erase(1,30);
-<<<<<<< HEAD
-	std::cout << s4.c_str() << std::endl;
-=======
-	std::cout << s4.c_str() << std::endl;*/
-
-	myString s5("xxxxxxx");
-	s5.insert(0, 'p');
-	std::cout << s5.c_str() << std::endl;
-	s5.insert(0, "qqqq");
-	myString s6("123");
-	s5.insert(0, s6);
-	std::cout << s5.c_str() << std::endl;
-
-}
-
-void test_compare() {
-	myString s0 = "abc";
-	myString s1 = "cdefg";
-	std::cout << (s0 > s1)<< std::endl;
-	std::cout << (s0 >= s1)<< std::endl;
-	std::cout << (s0 < s1)<< std::endl;
-	std::cout << (s0 <= s1)<< std::endl;
-	std::cout << (s0 == s1)<< std::endl;
-	std::cout << (s0 != s1)<< std::endl;
-}
-
-void test_stream() {
-	myString s0 = "123456";
-	cout << s0 << endl;
-	myString s1;
-	cin >> s1;
-	cout << s1;
-}
-int main() {
-	// test_tra();
-	// test_capacity();
-	// test_insert();
-	/*test_compare();*/
-	test_stream();
-	return 0;
-}
