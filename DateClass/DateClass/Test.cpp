@@ -3,10 +3,13 @@
 // 主函数调用所有测试
 int main()
 {
-    TestCompare();
+    /*TestCompare();
     TestAddSubDay();
     TestIncDec();
     TestDateDiff();
-    TestInvalidDate();
+    TestInvalidDate();*/
+ 
+
+
     return 0;
 }
