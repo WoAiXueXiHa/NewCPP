@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <cassert>
 using namespace std;
+
 namespace Vect{
 	template <class T>
 	class mini_vector {
