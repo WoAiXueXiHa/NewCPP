@@ -1,7 +1,6 @@
 #include "my_vector.h"
 
 int main() {
-	//Vect::test_tra();
-	Vect::test_erase();
+	Vect::test();
 	return 0;
 }

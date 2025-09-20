@@ -2,30 +2,139 @@
 #include <cassert>
 #include <algorithm>
 using namespace std;
+
 namespace Vect {
 	template <class T>
 	class my_vector {
 	public:
 		typedef T* iterator;
-		typedef T* const_iterator;
+		typedef const T* const_iterator;
 
 		// 迭代器
 		iterator begin() { return _start; }
 		iterator end() { return _finish; }
+		iterator begin() const { return _start; }
+		iterator end() const { return _finish; }
+		const_iterator cbegin()const { return _start; }
+		const_iterator cend() const { return _finish; }
 
-		// 容量get函数
-		size_t capacity() { return _end_of_storage - _start; }
-		size_t size() { return _finish - _start; }
+
+		// 容量相关函数
+		size_t capacity() const {
+			if (!_start || !_end_of_storage) return 0;
+			return _end_of_storage - _start; 
+		}
+		size_t size() const { 
+			if (!_start || !_end_of_storage) return 0;
+			return _finish - _start; 
+		}
+		bool empty() const { return _start == _finish; }
 
 		// 构造函数
+		// 默认构造
 		my_vector()
 			:_start(nullptr)
 			, _finish(nullptr)
-			,_end_of_storage(nullptr){ }
+			,_end_of_storage(nullptr)
+		{ }
 
-		// 索引重载 返回当前这个值
+		// 构造n个元素
+		my_vector(size_t n, const T& val = T()) 
+			:_start(nullptr)
+			, _finish(nullptr)
+			, _end_of_storage(nullptr) 
+		{
+			reserve(n);
+			// 将所有数据尾插
+			for (size_t i = 0; i < n; i++)
+			{
+				push_back(val);
+			}
+		}
+
+		// 迭代器区间初始化
+		// 类模板的成员函数也能写成函数模板 支持了任意容器的迭代器初始化
+		template <class InputIterator>
+		my_vector(InputIterator first, InputIterator last) 
+			:_start(nullptr)
+			, _finish(nullptr)
+			, _end_of_storage(nullptr)
+		{
+			// 计算元素个数
+			size_t n = 0;
+			InputIterator tmp = first;
+			while (tmp != last) {
+				++tmp;
+				++n;
+			}
+
+			// 尾插n个元素
+			reserve(n);
+			while (first != last) {
+				push_back(*first);
+				++first;
+			}
+		}
+
+		// 拷贝构造
+		my_vector(const my_vector<T>& v)
+			:_start(nullptr)
+			, _finish(nullptr)
+			, _end_of_storage(nullptr)
+		{
+			// 逐个拷贝源vector的元素
+			reserve(v.capacity());
+			for (const auto& tmp : v) push_back(tmp);
+		}
+
+		void swap(my_vector<T>& v) {
+			// 交换三个核心指针
+			std::swap(_start, v._start);
+			std::swap(_finish, v._finish);
+			std::swap(_end_of_storage, v._end_of_storage);
+		}
+
+		// 赋值运算符重载
+		my_vector<T>& operator=(my_vector<T> v) {
+			swap(v);
+			return *this;
+		}
+
+		// 析构
+		~my_vector() {
+			delete[] _start;
+			_start = _finish = _end_of_storage = nullptr;
+	
+		}
+
+		// 元素访问
 		T& operator[](size_t index){
 			if(index < size()) return _start[index];
+		}
+
+		const T& operator[](size_t index) const {
+			assert(index < size());
+			return _start[index];
+		}
+
+		T& front() {
+			assert(!empty());
+			return *_start;
+		}
+
+		const T& front() const {
+			assert(!empty());
+			return *_start;
+		}
+
+		T& back() {
+			assert(!empty());
+			return *(_finish - 1);
+		}
+
+		const T& back() const {
+			assert(!empty());
+			return *(_finish - 1);
 		}
 
 		// 预留空间
@@ -87,7 +196,7 @@ namespace Vect {
 			// 从后往前挪动数据
 			iterator end = _finish;
 			while (end != pos) {
-				*(end + 1) = *end;
+				*end = *(end - 1);
 				end--;
 			}
 			*pos = input_val;
@@ -99,7 +208,7 @@ namespace Vect {
 		// 删除pos位置元素
 		iterator erase(iterator pos) {
 			// 检查pos的合理性
-			assert(pos <= _finish && pos >= _start);
+			assert(pos < _finish && pos >= _start);
 
 			// 将pos之后的元素依次往前挪动一位
 			iterator end = pos + 1;
@@ -120,52 +229,78 @@ namespace Vect {
 	};
 
 
-
-	void test_tra() {
-		my_vector<int> v1;
-		v1.push_back(0);
-		v1.push_back(1);
-		v1.push_back(2);
-		v1.push_back(3);
-		v1.push_back(4);
-
-		// 索引访问
-		cout << "==== index ====" << endl;
-		for (size_t i = 0; i < v1.size(); i++)
-		{
-			cout << v1[i] << " ";
+	// 打印vector信息的辅助函数
+	template<class T>
+	void print_my_vector(const Vect::my_vector<T>& v, const std::string& name) {
+		std::cout << name << " - 大小: " << v.size()
+			<< ", 容量: " << v.capacity()
+			<< ", 元素: ";
+		for (size_t i = 0; i < v.size(); ++i) {
+			std::cout << v[i] << " ";
 		}
-
-		cout << endl << "==== iterator ====" << endl;
-		my_vector<int>:: iterator it = v1.begin();
-		while (it != v1.end()) {
-			cout << *it << " ";
-			it++;
-		}
-
-		cout << endl << "==== endge for ====" << endl;
-		for (auto e : v1) cout << e << " ";
+		std::cout << std::endl;
 	}
 
-	void test_erase() {
-		my_vector<int> v1;
-		v1.push_back(0);
-		v1.push_back(1);
-		v1.push_back(2);
-		v1.push_back(3);
-		v1.push_back(4);
-		v1.push_back(5);
-		v1.push_back(6);
+	// 封装所有测试逻辑的函数
+	void test() {
+		std::cout << "===== 开始测试my_vector所有接口 =====" << std::endl;
 
-		for (auto e : v1) cout << e << " ";
-		my_vector<int>::iterator target = find(v1.begin(), v1.end(), 3);
-		v1.erase(target);
-		cout << endl;
-		for (auto e : v1) cout << e << " ";
+		//  测试默认构造函数
+		Vect::my_vector<int> v1;
+		print_my_vector(v1, "v1(默认构造)");
 
-		
-	
-	
+		//  测试push_back、size、capacity
+		for (int i = 1; i <= 5; ++i) {
+			v1.push_back(i);
+		}
+		print_my_vector(v1, "v1(push_back 1-5后)");
+
+		// 测试reserve
+		v1.reserve(10);
+		print_my_vector(v1, "v1(reserve(10)后)");
+
+		//  测试带参数构造函数（修复类名错误：原Vect::vector改为Vect::my_vector）
+		Vect::my_vector<int> v2((size_t)3, 10);
+		print_my_vector(v2, "v2(构造3个10)");
+
+		//  测试迭代器范围构造
+		Vect::my_vector<int> v3(v1.begin() + 2, v1.begin() + 6);
+		print_my_vector(v3, "v3(迭代器范围v1[2]-v1[5])");
+
+		//  测试拷贝构造
+		Vect::my_vector<int> v4(v1);
+		print_my_vector(v4, "v4(拷贝v1)");
+
+		//  测试赋值运算符
+		Vect::my_vector<int> v5;
+		v5 = v2;
+		print_my_vector(v5, "v5(赋值v2)");
+
+		// 测试operator[]和修改元素
+		v5[0] = 99;
+		v5[1] = 88;
+		print_my_vector(v5, "v5(修改第0位为99、第1位为88后)");
+
+		//  测试front和back
+		std::cout << "v5 front: " << v5.front() << ", back: " << v5.back() << std::endl;
+
+		//  测试insert（修复打印函数名：原print_vector改为print_my_vector）
+		auto it = v5.insert(v5.begin() + 1, 55);
+		print_my_vector(v5, "v5(在第1位插入55后)");
+
+		//  测试erase（修复打印函数名）
+		it = v5.erase(v5.begin() + 3);
+		print_my_vector(v5, "v5(删除第3位元素后)");
+
+		// 测试empty
+		Vect::my_vector<int> v6;
+		std::cout << "v6是否为空: " << (v6.empty() ? "是" : "否") << std::endl;
+		v6.push_back(1);
+		std::cout << "v6添加1后是否为空: " << (v6.empty() ? "是" : "否") << std::endl;
+		print_my_vector(v6, "v6(添加1后)");
+
+		std::cout << "===== 所有接口测试完成 =====" << std::endl;
 	}
 }
+
 
