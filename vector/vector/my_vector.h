@@ -30,6 +30,8 @@ namespace Vect {
 		}
 		bool empty() const { return _start == _finish; }
 
+		void clear() { _finish = _start; }
+
 		// 构造函数
 		// 默认构造
 		my_vector()
@@ -86,6 +88,14 @@ namespace Vect {
 			reserve(v.capacity());
 			for (const auto& tmp : v) push_back(tmp);
 		}
+
+		//// 浅拷贝
+		//my_vector(const my_vector<T>& v)
+		//	:_start(v._start)
+		//	, _finish(v._finish)
+		//	, _end_of_storage(v._end_of_storage)
+		//{
+		//}
 
 		void swap(my_vector<T>& v) {
 			// 交换三个核心指针
@@ -151,14 +161,14 @@ namespace Vect {
 					//memcpy(tmp, _start, sizeof(T) * size());
 
 					// 深拷贝
-					for (size_t i = 0; i < old_size ; i++)
+					for (size_t i = 0; i < old_size; i++)
 					{
 						tmp[i] = _start[i]; // 将值一个一个拷贝过去
 					}
 					delete[] _start;
 				}
 				_start = tmp;
-				_finish = _start + old_size;
+				_finish = _start + size();
 				_end_of_storage = _start + input_num;
 			}
 		}
@@ -177,7 +187,7 @@ namespace Vect {
 			insert(_finish, input_val);
 		}
 
-		// 在pos之后插入元素
+		// 在pos位置插入元素
 		iterator insert(iterator pos, const T& input_val) {
 			// 检查pos的合理性
 			assert(pos <= _finish && pos >= _start);
@@ -220,8 +230,31 @@ namespace Vect {
 
 			_finish--;
 
-			return pos;
+			// 返回删除位置的下一个迭代器（原pos已失效，返回有效迭代器）
+			return pos; // 注意：此时pos指向的是原pos+1的元素（因元素已挪动）
 		}
+
+		// 按区间删除
+		iterator erase(iterator first, iterator last) {
+			// [first, last)
+			assert(first <= last && first >= _start && last <= _finish);
+
+			// 计算需要删除的元素个数
+			size_t len = last - first;
+
+			// 从last开始，向前挪动元素，覆盖被删除区间
+			iterator end = last;
+			while (end != _finish) {
+				*(first++) = *end++; // 用后面的元素覆盖被删除区间
+			}
+
+			// 更新_finish（减少删除的元素个数）
+			_finish -= len;
+
+			// 返回删除区间的起始位置（此时已指向原last位置的元素）
+			return first - len;
+		}
+
 	private:
 		iterator _start;
 		iterator _finish;
@@ -259,7 +292,7 @@ namespace Vect {
 		v1.reserve(10);
 		print_my_vector(v1, "v1(reserve(10)后)");
 
-		//  测试带参数构造函数（修复类名错误：原Vect::vector改为Vect::my_vector）
+		//  测试带参数构造函数
 		Vect::my_vector<int> v2((size_t)3, 10);
 		print_my_vector(v2, "v2(构造3个10)");
 
@@ -267,9 +300,16 @@ namespace Vect {
 		Vect::my_vector<int> v3(v1.begin() + 2, v1.begin() + 6);
 		print_my_vector(v3, "v3(迭代器范围v1[2]-v1[5])");
 
+		// 从数组的迭代器区间初始化（数组名可视为指针）
+		int arr[] = { 10,20,30 };
+		my_vector<int> v0(arr, arr + 3); // v0包含元素10,20,30
+		print_my_vector(v0, "v0(迭代器范围arr[0] - arr[2])");
+
+
 		//  测试拷贝构造
 		Vect::my_vector<int> v4(v1);
 		print_my_vector(v4, "v4(拷贝v1)");
+
 
 		//  测试赋值运算符
 		Vect::my_vector<int> v5;
@@ -284,11 +324,11 @@ namespace Vect {
 		//  测试front和back
 		std::cout << "v5 front: " << v5.front() << ", back: " << v5.back() << std::endl;
 
-		//  测试insert（修复打印函数名：原print_vector改为print_my_vector）
+		//  测试insert
 		auto it = v5.insert(v5.begin() + 1, 55);
 		print_my_vector(v5, "v5(在第1位插入55后)");
 
-		//  测试erase（修复打印函数名）
+		//  测试erase
 		it = v5.erase(v5.begin() + 3);
 		print_my_vector(v5, "v5(删除第3位元素后)");
 
@@ -300,6 +340,30 @@ namespace Vect {
 		print_my_vector(v6, "v6(添加1后)");
 
 		std::cout << "===== 所有接口测试完成 =====" << std::endl;
+	}
+
+	void test_shallow_copy() {
+		// 浅拷贝测试
+		my_vector<int> v10;
+		v10.push_back(10);
+		my_vector<int> v20 = v10; // 浅拷贝，v2与v1共享内存
+		v10.~my_vector(); // 析构v1，释放内存
+		cout << v20[0]; // 错误：v2._start指向已释放的内存（野指针）
+	}
+
+	void test_reserve() {
+		Vect::my_vector<int> v;
+		v.push_back(1);
+		v.push_back(2); 
+		v.push_back(2); 
+		v.push_back(2); 
+		v.push_back(2); 
+		v.push_back(2); 
+		cout << "reserve前：size=" << v.size() << ", capacity=" << v.capacity() << endl;
+
+		v.reserve(10); // 调用reserve，触发错误逻辑
+		cout << "reserve后：size=" << v.size() << ", capacity=" << v.capacity() << endl;
+
 	}
 }
 
