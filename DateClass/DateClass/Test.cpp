@@ -1,15 +1,10 @@
-#include "Date.h"
+#include "date.hpp"
+using namespace Vect;
 
-// 主函数调用所有测试
-int main()
-{
-    /*TestCompare();
-    TestAddSubDay();
-    TestIncDec();
-    TestDateDiff();
-    TestInvalidDate();*/
- 
-
-
-    return 0;
+int main() {
+	//Vect::dateCompare();
+	//Vect::datePlusAndSub();
+	//::datePlusAndSubDays();
+	test();
+	return 0;
 }
