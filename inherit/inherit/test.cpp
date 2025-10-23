@@ -373,26 +373,59 @@ using namespace std;
 //
 //}
 
-// 派生类对象可以赋值给基类的对象、指针、引用
-class Person {
-protected:
-	int _age;
-	string _sex;
-	string _name;
+//// 派生类对象可以赋值给基类的对象、指针、引用
+//class Person {
+//protected:
+//	int _age;
+//	string _sex;
+//	string _name;
+//};
+//
+//class Student : public Person {
+//protected:
+//	int _score;
+//};
+//int main() {
+//	Student stuObj;
+//	Person pA = stuObj;
+//	Person& pB = stuObj;
+//	Person* pC = &stuObj;
+//
+//	// 基类对象不能赋值给派生类对象 小->大 不行
+//	//stuObj = pA;
+//
+//	return 0;
+//}
+
+// 多继承
+// 共享电动车： 可充电 可联网 是电动车
+
+class eBike {
+public:
+	void name(){ cout << "是电动车" << endl; }
+};
+class chargeAble {
+public:
+	void canCharge() { cout << "可充电" << endl; }
+};
+class webConnectable {
+public:
+	void canConnectWeb() { cout << "可联网" << endl; }
 };
 
-class Student : public Person {
-protected:
-	int _score;
+class shareEBike : public eBike
+				 , public chargeAble
+				 , public webConnectable{
+public:
+	void bike() { cout << "是共享电动车" << endl; }
 };
+
 int main() {
-	Student stuObj;
-	Person pA = stuObj;
-	Person& pB = stuObj;
-	Person* pC = &stuObj;
-
-	// 基类对象不能赋值给派生类对象 小->大 不行
-	//stuObj = pA;
+	shareEBike bike;
+	bike.bike();
+	bike.name();
+	bike.canConnectWeb();
+	bike.canCharge();
 
 	return 0;
 }
