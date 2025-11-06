@@ -136,3 +136,38 @@ namespace abstractClass {
 		tuna->swim();
 	}
 }
+
+namespace showTheroy {
+	class Base {
+	public:
+		virtual void func1() { cout << "Base::func1" << endl; }
+		virtual void func2() { cout << "Base::func2" << endl; }
+		void func3() { cout << "Base::fun3" << endl; }
+	private:
+		int _b = 1;
+	};
+
+	class Derived : public Base {
+	public:
+		void func1() { cout << "Derived::func1" << endl; } // 只重写func1
+	private:
+		int _d = 0;
+	};
+
+	void testShow() {
+		Base b;
+		Derived d;
+
+		Base* pb = &b;
+		Base* pd = &d;   // 指向“派生类对象的基类子对象”
+
+		pb->func1();   // Base::func1
+		pd->func1();   // Derived::func1  ← 多态
+		pd->func2();   // Base::func2     ← 未重写，落回基类
+	}
+
+	void testSize() {
+		Base b;
+		cout << sizeof(Base) << endl;
+	}
+}

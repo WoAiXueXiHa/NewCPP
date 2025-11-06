@@ -258,6 +258,7 @@ namespace Vect {
 	//}
 
 	void test() {
+
 		std::cout << "===== 1) ±È½ÏÔËËã²âÊÔ =====\n";
 		{
 			Date a(2025, 10, 15);

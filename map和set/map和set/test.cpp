@@ -1,7 +1,7 @@
 #include "setUse.h"
 
 int main() {
-	testSet();
-
+	//testSetInsert();
+	testSetErase();
 	return 0;
 }

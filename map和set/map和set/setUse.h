@@ -4,8 +4,7 @@
 using namespace std;
 
 
-void testSet() {
-	// 1. 插入+遍历
+void testSetInsert() {
 	set<int> s;
 	s.insert(2);
 	s.insert(5);
@@ -34,14 +33,34 @@ void testSet() {
 	}
 
 	cout << endl;
+}
 
-	// 2. 删除
-	int x = 0;
-	cin >> x;
-	auto pos = s.find(x);
-	if (pos != s.end()) s.erase(pos);
-	else cout << x << "不存在！\n";
-	cout << "删除后的序列：\n";
-	for (const auto& e : s) cout << e << " ";
+void testSetErase() {
+	set<string> mySet;
+	mySet.insert("123");
+	mySet.insert("kunkun");
+	mySet.insert("张三");
+	mySet.insert("李四");
+	mySet.insert("abc");
+	
+	auto it = mySet.begin();
+	cout << "删除前:\n";
+	for (const auto& e : mySet) cout << e << "  ";
 
+	mySet.erase(mySet.find("123"));
+	cout << "\n删除123之后：\n";
+	for (const auto& e : mySet) cout << e << "  ";
+
+	it = mySet.find("abc");
+	it = mySet.erase(it);
+	cout << "\n删除abc之后：\n";
+	for (const auto& e : mySet) cout << e << "  ";
+
+	// 全部删除 注意迭代器失效问题 
+	it = mySet.begin();
+	while (it != mySet.end()) {
+		it = mySet.erase(it); // 返回删除后的下一个迭代器位置
+	}
+	cout << "\n全部删除之后：\n";
+	cout << "剩余元素：" << mySet.size();
 }
