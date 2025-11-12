@@ -53,7 +53,7 @@ namespace Vect {
 			else {
 				Node* cur = _node;
 				Node* parent = _node->_parent;
-				if (parent && cur == parent->_right) {
+				while (parent && cur == parent->_right) {
 					cur = parent;
 					parent = cur->_parent;
 				}
@@ -153,9 +153,9 @@ namespace Vect {
 		}
 
 		// 插入成功 返回新插入节点迭代器      插入失败 返回上一个节点迭代器
-		pair<Iterator, bool> Insert(const Key& key) {
+		pair<Iterator, bool> Insert(const ValueType& data) {
 			if (_root == nullptr) {
-				_root = new Node(key, RED);
+				_root = new Node(data, BLACK);
 				return make_pair(Iterator(_root, _root),true);
 			}
 
@@ -164,11 +164,11 @@ namespace Vect {
 			Node* parent = nullptr;
 			KeyOfV kov;
 			while (cur) {
-				if (key < kov(cur->_data)) {
+				if (kov(data) < kov(cur->_data)) {
 					parent = cur;
 					cur = cur->_left;
 				}
-				else if (key > kov(cur->_data)) {
+				else if (kov(data) > kov(cur->_data)) {
 					parent = cur;
 					cur = cur->_right;
 				}
@@ -176,7 +176,7 @@ namespace Vect {
 			}
 
 			// 2. 插入操作
-			cur = new Node(key, RED);
+			cur = new Node(data, RED);
 			Node* newNode = cur;	// 提前保存一份 防止旋转之后迭代器失效
 
 			cur->_parent = parent;
@@ -192,8 +192,7 @@ namespace Vect {
 			while (parent && parent->_col == RED) {
 				// 父节点为红色 就一定不是根 父节点的父亲一定存在且为黑
 				Node* grandfather = parent->_parent;
-				Node* uncle = (parent == grandfather->_left) 
-							? grandfather->_right : grandfather->_left;
+				Node* uncle = (parent == grandfather->_left) ? grandfather->_right : grandfather->_left;
 
 				// uncle在左
 				if (grandfather->_right == parent) {
@@ -326,7 +325,7 @@ namespace Vect {
 		}
 
 		Node* Copy(Node* root) {
-			if (root == nullptr) return;
+			if (root == nullptr) return nullptr;
 			
 			Node* newRoot = new Node(root->_data, root->_col);
 			newRoot->_left = Copy(root->_left);
