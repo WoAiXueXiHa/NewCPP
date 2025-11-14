@@ -274,7 +274,6 @@ namespace Vect {
 		std::cout << std::endl;
 	}
 
-	// 封装所有测试逻辑的函数
 	void test() {
 		std::cout << "===== 开始测试my_vector所有接口 =====" << std::endl;
 
@@ -288,51 +287,42 @@ namespace Vect {
 		}
 		print_my_vector(v1, "v1(push_back 1-5后)");
 
-		// 测试reserve
 		v1.reserve(10);
 		print_my_vector(v1, "v1(reserve(10)后)");
 
-		//  测试带参数构造函数
 		Vect::my_vector<int> v2((size_t)3, 10);
 		print_my_vector(v2, "v2(构造3个10)");
 
-		//  测试迭代器范围构造
 		Vect::my_vector<int> v3(v1.begin() + 2, v1.begin() + 6);
 		print_my_vector(v3, "v3(迭代器范围v1[2]-v1[5])");
 
-		// 从数组的迭代器区间初始化（数组名可视为指针）
 		int arr[] = { 10,20,30 };
-		my_vector<int> v0(arr, arr + 3); // v0包含元素10,20,30
+		my_vector<int> v0(arr, arr + 3); 
 		print_my_vector(v0, "v0(迭代器范围arr[0] - arr[2])");
 
 
-		//  测试拷贝构造
 		Vect::my_vector<int> v4(v1);
 		print_my_vector(v4, "v4(拷贝v1)");
 
 
-		//  测试赋值运算符
 		Vect::my_vector<int> v5;
 		v5 = v2;
 		print_my_vector(v5, "v5(赋值v2)");
 
-		// 测试operator[]和修改元素
 		v5[0] = 99;
 		v5[1] = 88;
 		print_my_vector(v5, "v5(修改第0位为99、第1位为88后)");
 
-		//  测试front和back
 		std::cout << "v5 front: " << v5.front() << ", back: " << v5.back() << std::endl;
 
-		//  测试insert
+
 		auto it = v5.insert(v5.begin() + 1, 55);
 		print_my_vector(v5, "v5(在第1位插入55后)");
 
-		//  测试erase
+
 		it = v5.erase(v5.begin() + 3);
 		print_my_vector(v5, "v5(删除第3位元素后)");
 
-		// 测试empty
 		Vect::my_vector<int> v6;
 		std::cout << "v6是否为空: " << (v6.empty() ? "是" : "否") << std::endl;
 		v6.push_back(1);

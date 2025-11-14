@@ -20,7 +20,7 @@ namespace Vect {
 		const_iterator end() const { return _tree.End(); }
 
 		pair<iterator, bool> insert(const Key& key) { return _tree.Insert(key);}
-		iterator find(const Key& key) { return _tree.Find(); }
+		iterator find(const Key& key) { return _tree.Find(key); }
 
 	private:
 		RBTree<Key, const Key, SetKeyOfV> _tree;
