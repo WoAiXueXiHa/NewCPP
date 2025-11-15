@@ -1,7 +1,10 @@
 #include "Hash.h"
-
+#include"unordered_map.h"
+#include"unordered_set.h"
 int main() {
 
-	open_adress::testHash();
+	Vect::TestUnorderedMapBasic();
+	Vect::TestUnorderedSetBasic();
+	
 	return 0;
 }
