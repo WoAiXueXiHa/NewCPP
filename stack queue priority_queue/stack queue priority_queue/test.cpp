@@ -56,4 +56,6 @@ int main() {
     std::cout << "¶Ñ¶¥£º" << structHeap.top().score
         << " " << structHeap.top().name << std::endl;
     return 0;
+
+
 }

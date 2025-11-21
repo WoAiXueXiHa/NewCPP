@@ -1,9 +1,6 @@
 #include "my_vector.h"
-
+#include"myVector.h"
 int main() {
-	Vect::test();
-	//Vect::test_shallow_copy();
-
-	// Vect::test_reserve();
+	myVector::TestDArray();
 	return 0;
 }
