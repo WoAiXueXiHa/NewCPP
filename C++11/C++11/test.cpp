@@ -412,14 +412,317 @@ using namespace std;
 //	return 0;
 //}
 
-#include <map>
+//#include <map>
+//
+//void test() {
+//	map<int, string> m;
+//
+//	// 写法一： 传pair所需的参数
+//	m.emplace(2, "hh");
+//
+//	// 写法二： make_pair
+//	m.emplace(make_pair(2, string("hh")));
+//}
 
-void test() {
-	map<int, string> m;
 
-	// 写法一： 传pair所需的参数
-	m.emplace(2, "hh");
 
-	// 写法二： make_pair
-	m.emplace(make_pair(2, string("hh")));
+/***********************************************************************************************/
+//template <class... Args>
+//void Debug(Args... args) {
+//	// 这个写法很怪 sizeof...()	而其他是跟在class Args后面
+//	cout << "参数个数: " << sizeof...(Args) << endl;
+//}
+//int main() {
+//	Debug(1, 3.5, "hi", 'a');
+//
+//	return 0;
+//}
+
+//// 一次性展开到一个函数里
+//template <class... Args>
+//void call(void(*f)(Args...), Args... args) {
+//	f(args...);		// 展开成f(a,b,c...)
+//}
+//
+//// 用initial_list展开打印
+//template<class... Args>
+//void Print(Args... args) {
+//	int arr[] = { (cout << args << " ",0)... };
+//	(void)arr;
+//	cout << endl;
+//}
+//int main() {
+//	Print(1, 3.5, "hh", 'a');
+//
+//	return 0;
+//}
+
+//// 搭配右值引用
+//template <class... Args>
+//void ForwardTo(FuncType f, Args... args) {
+//	// 这个...又tm写到外面去了
+//	f(forward<Args>(args)...);
+//}
+
+//#include <vector>
+//// 配合容器的emplace
+//template<class... Args>
+//void vector<T>::emplace_back(Args&&... args) {
+//    ::new ((void*)_finish) T(std::forward<Args>(args)...);
+//    ++_finish;
+//}
+
+// lambda
+// [caputure_list](parameter_list) mutable ->return_type { body; };
+//    捕获列表		参数列表		取消常性		返回值类型		函数体
+
+#include <vector>
+#include <algorithm>
+//int main() {
+//	auto f = [](int x, int y) ->int { return x + y; };
+//	int ret = f(20, 40);	// 像函数一样使用
+//
+//	vector<int> v = { 3,5,4,1,8,3,37 };
+//	sort(v.begin(), v.end(), [](int a, int b) {return a < b; });
+//
+//	return 0;
+//}
+
+//int factor = 10;
+//auto f = [factor](int x) {return x * factor; };
+//// --->
+//struct __Lambda_1 {
+//    int factor;                   // 捕获的变量变成成员
+//
+//    __Lambda_1(int f) : factor(f) {}
+//
+//    int operator()(int x) const { // 函数体变成 operator()
+//        return x * factor;
+//    }
+//};
+//
+//int factor = 10;
+//__Lambda_1 f(factor);             // 捕获时拷贝 factor
+//int y = f(3);                     // 调用 operator()(3)
+
+//// 按值捕获
+//void captureValue() {
+//	int a = 10;
+//	// a 是复制进来的，lambda 里面访问的是那份拷贝
+//	auto f = [a]() { cout << a << endl; };
+//
+//	a = 20;
+//	f();
+//
+//	int x = 1, y = 2, z = 3;
+//	auto g = [=] {cout << x << ":" << y << ":" << z << endl; };
+//
+//	g();
+//}
+//
+//// 按引用捕获
+//void captureRef() {
+//	int a = 10;
+//	// lambda 里面访问的是a的别名
+//	auto f = [&a] {cout << a << endl; };
+//
+//	a = 20;
+//	f();
+//
+//	int x = 1, y = 2, z = 3;
+//	auto g = [&] {cout << x << ":" << y << ":" << z << endl; };
+//
+//	g();
+//}
+//
+//// 混合捕获
+//void captureMixing() {
+//	int a = 10, b = 20;
+//	double c = 0.6;
+//	// 错误写法 C++要求 默认方式捕获必须放到最前面，之后的特殊捕获随意
+//	//auto f = [&b,=] {cout << a << ":" << b << ":" << c << endl; };
+//	auto f = [=,&b] {cout << a << ":" << b << ":" << c << endl; };
+//
+//	f();
+//}
+//int main() {
+//	//captureValue();
+//	//captureRef();
+//	//captureMixing();
+//	return 0;
+//}
+
+//void test() {
+//	//// 按值捕获的lambda是const的
+//	//int a = 10;
+//	//// error C3491: “a”: 无法在非可变 lambda 中修改通过复制捕获
+//	//auto f = [a]() {a++; };
+//
+//	int a = 10;
+//	auto f = [a]()mutable {
+//		// 改的是拷贝 不是外面的a
+//		a++; cout << a << endl;
+//		};
+//	f();	// 11
+//	f();	// 12
+//	cout << a << endl;	// 10
+//}
+//
+//int main() {
+//	test();
+//	return 0;
+//}
+//
+//void test() {
+//    // 仿函数
+//    struct Rate {
+//        double operator()(double money, int year) const {
+//            return money * pow(1.05, year);
+//        }
+//    };
+//    Rate r;
+//    r(100, 3);
+//
+//    // lambda
+//    auto r2 = [](double money, int year) {
+//        return money * pow(1.05, year);
+//    };
+//    r2(100, 3);
+//}
+//
+//int main() {
+//    test();
+//
+//    return 0;
+//}
+
+
+// 包装器
+// 函数模板的痛点： 一个模板实例化出三份 过于臃肿
+//template<class F, class T>
+//T useF(F f, T x)
+//{
+//    static int count = 0;
+//    std::cout << "count:" << ++count << std::endl;
+//    std::cout << "count:" << &count << std::endl;
+//    return f(x);
+//}
+//double f(double i) { return i / 2; }
+//
+//struct Functor {
+//    double operator()(double d) { return d / 3; }
+//};
+//
+//// 用三种方式调用
+//int main() {
+//    // 函数名
+//    std::cout << useF(f, 11.11) << std::endl;
+//
+//    // 函数对象（仿函数）
+//    std::cout << useF(Functor(), 11.11) << std::endl;
+//
+//    // lambda 表达式
+//    std::cout << useF([](double d)->double { return d / 4; }, 11.11) << std::endl;
+//}
+
+/*
+* template <class Ret, class... Args>
+* class function<Ret(Args...)>;
+*/
+//#include <functional>
+//
+//int f(int a, int b) { return a + b; }
+//
+//struct Func {
+//	int operator()(int a, int b) { return a + b; }
+//};
+//
+//class Plus {
+//public:
+//	static int plusi(int a, int b) { return a + b; }
+//	double plusd(double a, double b) { return a + b; }
+//};
+//
+//int main() {
+//	// 1. 包普通函数/函数指针
+//	function<int(int, int)> func1 = f;
+//	cout << func1(1, 2) << endl;
+//
+//	// 2. 包仿函数
+//	function<int(int, int)> func2 = Func();
+//	cout << func2(1, 2) << endl;
+//
+//	// 3.包lambda
+//	function<int(int, int)> func3 =
+//		[](int a, int b) {return a + b; };
+//	cout << func3(1, 2) << endl;
+//
+//	// 4. 包静态成员函数
+//	function<int(int, int)> func4 = &Plus::plusi;
+//	cout << func4(1, 2) << endl;
+//
+//	// 5. 包普通成员函数 需要把类也当参数传进去
+//	function<double(Plus,double, double)> func5 = &Plus::plusd;
+//	cout << func5(Plus(),1.0, 2.0) << endl;
+//
+//	return 0;
+//}
+
+//template<class F, class T>
+//T useF(F f, T x)
+//{
+//    static int count = 0;
+//    std::cout << "count:" << ++count << std::endl;
+//    std::cout << "count:" << &count << std::endl;
+//    return f(x);
+//}
+
+//#include <functional>
+//template <class T>
+//T useF(function<T(T)> f, T x) {
+//	static int count = 0;
+//	cout << "count:" << ++count << endl;
+//	cout << "count:" << &count << endl;
+//	return f(x);
+//}
+//double f(double i) { return i / 2; }
+//
+//struct Functor {
+//    double operator()(double d) { return d / 3; }
+//};
+//
+//int main()
+//{
+//    // 包装不同的 可调用对象 为同一类型
+//    function<double(double)> func1 = f;
+//    function<double(double)> func2 = Functor();
+//    function<double(double)> func3 = [](double d) { return d / 4; };
+//
+//    cout << useF(func1, 11.11) << endl;
+//    cout << useF(func2, 11.11) << endl;
+//    cout << useF(func3, 11.11) << endl;
+//}
+
+
+template<class R, class... Args>
+class MiniFunction {
+    void* obj;                                           // 存真实对象
+    R(*caller)(void*, Args&&...);                       // 怎么调用
+
+public:
+    template<class F> MiniFunction(F&& f)                // 构造：存对象 + 存调用器
+        : obj(new F(std::forward<F>(f)))
+        , caller([](void* p, Args&&... as) -> R {        // lambda 作为“调用器”
+        return (*static_cast<F*>(p))(std::forward<Args>(as)...);
+            }) {
+    }
+
+    R operator()(Args... as) {                           // 对外调用统一接口
+        return caller(obj, std::forward<Args>(as)...);
+    }
+};
+
+
+int main() {
+    return 0;
 }
