@@ -1,5 +1,5 @@
-#include <iostream>
-using namespace std;
+//#include <iostream>
+//using namespace std;
 
 //#include <cassert>
 //void errorC() {
@@ -172,3 +172,159 @@ using namespace std;
 //// C++11 中新增的noexcept，表示不会抛异常
 //thread() noexcept;
 //thread(thread&& x) noexcept;
+
+
+
+/***********************************************************************************************************/
+//#include <iostream>
+//using namespace std;
+//
+//double div() {
+//	double a = 0, b = 0;
+//	cin >> a >> b;
+//	if (0 == b) throw "分母为零 !\0";
+//	return a / b;
+//} 
+//
+//template <class T>
+//class smartPtr {
+//private:
+//	T* _ptr;
+//public:
+//	smartPtr(T* ptr = nullptr)
+//		:_ptr(ptr)
+//	{
+//		cout << "smartPtr构造: " << _ptr << endl;
+//	}
+//
+//	T& operator*() { return *_ptr; }
+//	T* operator*() { return _ptr; }
+//
+//	~smartPtr() {
+//		if (_ptr) {
+//			cout << "smartPtr析构: " << _ptr << endl;
+//			delete _ptr;
+//		}
+//	}
+//};
+//
+//void funcCatch() {
+//	/*double* pa = new double;
+//	double* pb = new double;*/
+//
+//	// 现在利用设计的smartPtr来进行控制
+//	smartPtr<double> sp1(new double);
+//	smartPtr<double> sp2(new double);
+//
+//	cout << div() << endl;
+//
+//}
+//
+////// 内存泄漏情况
+////void memoryLeak() {
+////	// 1. 指针未释放
+////	int a = 10;
+////	int* ptr1 = &a;
+////
+////	// 2. 异常造成的资源未释放
+////	int* arr = new int[10];
+////	funcCatch();
+////
+////	// 先捕获到异常 造成程序终止 arr未被释放
+////	delete[] arr;
+////}
+//
+//
+//int main() {
+//	try {
+//		funcCatch();
+//	}
+//	catch(exception& e){
+//		cout << e.what() << endl;
+//	}
+//
+//	return 0;
+//}
+
+
+//#include <iostream>
+//using namespace std;
+//
+//template <class T>
+//class smartPtr {
+//private:
+//	T* _ptr;
+//public:
+//	smartPtr(T* ptr = nullptr)
+//		:_ptr(ptr)
+//	{
+//		cout << "smartPtr构造: " << _ptr << endl;
+//	}
+//
+//	T& operator*() { return *_ptr; }
+//	T* operator->() { return _ptr; }
+//
+//	~smartPtr() {
+//		if (_ptr) {
+//			cout << "smartPtr析构: " << _ptr << endl;
+//			delete _ptr;
+//		}
+//	}
+//};
+//
+//struct Date {
+//	int year;
+//	int month;
+//	int day;
+//
+//	Date() = default;
+//};
+//
+//int main() {
+//	
+//	smartPtr<int> sp1(new int);
+//	*sp1 = 10;
+//
+//	smartPtr<Date> spDate(new Date);
+//	// 语法糖： spDate->operator()->
+//	spDate->year = 2010;
+//	spDate->month = 1;
+//	spDate->day = 1;
+//
+//
+//	return 0;
+//}
+
+#include <iostream>
+using namespace std;
+
+#include "autoPtr.h"
+#include "uniquePtr.h"
+//int main() {
+//
+//	autoPtr::auto_ptr<autoPtr::Date> spDate(new autoPtr::Date);
+//	spDate->year = 2010;
+//	spDate->month = 1;
+//	spDate->day = 1;
+//
+//	autoPtr::auto_ptr<autoPtr::Date> cpDate(new autoPtr::Date);
+//
+//	cpDate = spDate;
+//
+//	return 0;
+//}
+
+int main() {
+	uniquePtr::unique_ptr<uniquePtr::Date> upDate(new uniquePtr::Date);
+
+	upDate->day = 0;
+	upDate->month = 0;
+	upDate->year = 0;
+
+	//  error C2280: “uniquePtr::unique_ptr<uniquePtr::Date>::unique_ptr(const uniquePtr::unique_ptr<uniquePtr::Date> &)”: 
+	// 尝试引用已删除的函数
+	// uniquePtr::unique_ptr<uniquePtr::Date> cpDate(upDate);
+
+	return 0;
+}
+
